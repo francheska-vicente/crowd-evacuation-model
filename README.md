@@ -1,1 +1,1 @@
-# Simulation of Crowd Evacuation Model in Mall of Asia (MOA) Arena: An Agent-based Model 
+# Simulation of Crowd Evacuation in Mall of Asia (MOA) Arena: An Agent-based Model 
