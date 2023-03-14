@@ -1,14 +1,19 @@
+breed [ persons person ]
+
 to setup
   clear-all
 
-  setup-patches
+  setup-floors
+
+  setup-people
 
   reset-ticks
 end
 
-to setup-patches
+to setup-floors
   ask patches with [abs pxcor <= max-pxcor and abs pxcor >= max-pxcor - 5][
     set pcolor pink
+
   ]
 
   ask patches with [abs pycor <= max-pycor and abs pycor >= max-pycor - 3][
@@ -43,6 +48,33 @@ to setup-patches
     set pcolor sky
   ]
 
+end
+
+to setup-people
+  create-persons fifth_floor [
+    set color black
+    move-to one-of patches with [pcolor = pink]
+  ]
+
+  create-persons fourth_floor [
+    set color black
+    move-to one-of patches with [pcolor = magenta]
+  ]
+
+  create-persons third_floor [
+    set color black
+    move-to one-of patches with [pcolor = violet]
+  ]
+
+  create-persons second_floor [
+    set color black
+    move-to one-of patches with [pcolor = blue]
+  ]
+
+  create-persons first_floor [
+    set color black
+    move-to one-of patches with [pcolor = sky]
+  ]
 end
 
 to go
