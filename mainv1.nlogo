@@ -1,13 +1,66 @@
+to setup
+  clear-all
+
+  setup-patches
+
+  reset-ticks
+end
+
+to setup-patches
+  ask patches with [abs pxcor <= max-pxcor and abs pxcor >= max-pxcor - 5][
+    set pcolor pink
+  ]
+
+  ask patches with [abs pycor <= max-pycor and abs pycor >= max-pycor - 3][
+    set pcolor pink
+  ]
+
+  ask patches with [abs pxcor < max-pxcor - 5 and abs pxcor >= max-pxcor - 10 and pcolor = black][
+    set pcolor magenta
+  ]
+
+  ask patches with [abs pycor < max-pycor - 3 and abs pycor >= max-pycor - 6 and pcolor = black][
+    set pcolor magenta
+  ]
+
+  ask patches with [abs pxcor < max-pxcor - 10 and abs pxcor >= max-pxcor - 15 and pcolor = black][
+    set pcolor violet
+  ]
+
+  ask patches with [abs pycor < max-pycor - 6 and abs pycor >= max-pycor - 9 and pcolor = black][
+    set pcolor violet
+  ]
+
+  ask patches with [abs pxcor < max-pxcor - 15 and abs pxcor >= max-pxcor - 20 and pcolor = black][
+    set pcolor blue
+  ]
+
+  ask patches with [abs pycor < max-pycor - 9 and abs pycor >= max-pycor - 12 and pcolor = black][
+    set pcolor blue
+  ]
+
+  ask patches with [pcolor = black] [
+    set pcolor sky
+  ]
+
+end
+
+to go
+
+
+end
+
+
 
 @#$#@#$#@
 GRAPHICS-WINDOW
-416
-46
-1640
-654
+420
+27
+1537
+709
 -1
 -1
-18.152
+15.91
 1
 10
 1
@@ -17,10 +70,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--33
-33
--16
-16
+-30
+30
+-18
+18
 0
 0
 1
@@ -28,10 +81,10 @@ ticks
 30.0
 
 SLIDER
-35
-73
-207
-106
+38
+147
+210
+180
 first_floor
 first_floor
 0
@@ -43,20 +96,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-26
-27
-352
-70
+29
+100
+355
+143
 The following sliders represent the number of people per floor of the arena
 15
 0.0
 1
 
 SLIDER
-215
-71
-387
-104
+218
+144
+390
+177
 second_floor
 second_floor
 0
@@ -68,10 +121,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-33
-116
-205
-149
+37
+189
+209
+222
 third_floor
 third_floor
 0
@@ -83,10 +136,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-214
-114
-386
-147
+218
+188
+390
+221
 fourth_floor
 fourth_floor
 0
@@ -98,10 +151,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-33
-155
-205
-188
+37
+228
+209
+261
 fifth_floor
 fifth_floor
 0
@@ -113,20 +166,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-18
-210
-356
-252
+23
+278
+361
+320
 The following sliders represent the percentage of the type of poeple in the arena.
 15
 0.0
 1
 
 SLIDER
-29
-255
-202
-289
+33
+328
+206
+361
 percentage_prepared
 percentage_prepared
 0
@@ -138,10 +191,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-28
-298
-201
-332
+32
+372
+205
+405
 percentage_fighters
 percentage_fighters
 0
@@ -153,10 +206,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-208
-255
-381
-289
+212
+328
+385
+361
 percentage_listeners
 percentage_listeners
 0
@@ -168,10 +221,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-27
-368
-200
-402
+30
+442
+203
+475
 number_of_helpers
 number_of_helpers
 0
@@ -183,10 +236,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-208
-369
-381
-403
+212
+443
+385
+476
 rate_of_fire_spread
 rate_of_fire_spread
 0
@@ -196,6 +249,40 @@ rate_of_fire_spread
 1
 NIL
 HORIZONTAL
+
+BUTTON
+133
+42
+197
+76
+setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+209
+42
+273
+76
+go
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
