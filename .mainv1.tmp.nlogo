@@ -1,13 +1,118 @@
+breed [ persons person ]
+
+to setup
+  clear-all
+
+  setup-floors
+
+  setup-people
+
+  reset-ticks
+end
+
+to setup-floors
+  ask patches [
+    ; VIP
+    if pxcor <= 28 and pxcor >= -28 and pycor >= -22 and pycor <= 22
+      [ set pcolor red ]
+    if pxcor = 29 or pxcor = -29 or pxcor = 30 or pxcor = -30 and pycor >= -21 and pycor <= 21
+      [ set pcolor red ]
+    if pxcor = 31 or pxcor = -31 or pxcor = 32 or pxcor = -32 and pycor >= -20 and pycor <= 20
+      [ set pcolor red ]
+    if pxcor = 33 or pxcor = -33 or pxcor = 34 or pxcor = -34 and pycor >= -19 and pycor <= 19
+      [ set pcolor red ]
+    if pxcor = 35 or pxcor = -35 or pxcor = 36 or pxcor = -36 and pycor >= -18 and pycor <= 18
+      [ set pcolor red ]
+    if pxcor = 37 or pxcor = -37 or pxcor = 38 or pxcor = -38 and pycor >= -17 and pycor <= 17
+      [ set pcolor red ]
+    if pxcor = 39 or pxcor = -39 or pxcor = 40 or pxcor = -40 and pycor >= -16 and pycor <= 16
+      [ set pcolor red ]
+    if pxcor = 41 or pxcor = -41 and pycor >= -15 and pycor <= 15
+      [ set pcolor red ]
+
+    ; 211
+    if pxcor >= 43 and pxcor <= 50 and pycor >= 1 and pycor <= 12
+      [ set pcolor red ]
+    ; 201
+    if pxcor <= -43 and pxcor >= -50 and pycor >= 1 and pycor <= 12
+      [ set pcolor red ]
+    ; 212
+    if pxcor >= 43 and pxcor <= 50 and pycor <= -1 and pycor >= -12
+      [ set pcolor red ]
+    ; 202
+    if pxcor <= -43 and pxcor >= -50 and pycor <= -1 and pycor >= -12
+      [ set pcolor red ]
+
+    ; 411
+    if pxcor >= 54 and pxcor <= 63 and pycor >= 1 and pycor <= 13
+      [ set pcolor red ]
+    ; 401
+    if pxcor <= -54 and pxcor >= -63 and pycor >= 1 and pycor <= 13
+      [ set pcolor red ]
+    ; 412
+    if pxcor >= 54 and pxcor <= 63 and pycor <= -1 and pycor >= -13
+      [ set pcolor red ]
+    ; 402
+    if pxcor <= -54 and pxcor >= -63 and pycor <= -1 and pycor >= -13
+      [ set pcolor red ]
+
+    ; 511
+    if pxcor >= 65 and pxcor <= 72 and pycor >= 1 and pycor <= 13
+      [ set pcolor  ]
+    ; 501
+    if pxcor <= -65 and pxcor >= -72 and pycor >= 1 and pycor <= 13
+      [ set pcolor red ]
+    ; 512
+    if pxcor >= 65 and pxcor <= 72 and pycor <= -1 and pycor >= -13
+      [ set pcolor red ]
+    ; 502
+    if pxcor <= -65 and pxcor >= -72 and pycor <= -1 and pycor >= -13
+      [ set pcolor red ]
+  ]
+end
+
+to setup-people
+  create-persons fifth_floor [
+    set color black
+    move-to one-of patches with [pcolor = pink]
+  ]
+
+  create-persons fourth_floor [
+    set color black
+    move-to one-of patches with [pcolor = magenta]
+  ]
+
+  create-persons third_floor [
+    set color black
+    move-to one-of patches with [pcolor = violet]
+  ]
+
+  create-persons second_floor [
+    set color black
+    move-to one-of patches with [pcolor = blue]
+  ]
+
+  create-persons first_floor [
+    set color black
+    move-to one-of patches with [pcolor = sky]
+  ]
+end
+
+to go
+
+
+end
+
 
 @#$#@#$#@
 GRAPHICS-WINDOW
-416
-46
-1558
-614
+420
+27
+2829
+2437
 -1
 -1
-18.152
+15.91
 1
 10
 1
@@ -17,10 +122,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--33
-33
--16
-16
+-75
+75
+-75
+75
 0
 0
 1
@@ -28,10 +133,10 @@ ticks
 30.0
 
 SLIDER
-35
-73
-207
-106
+38
+147
+210
+180
 first_floor
 first_floor
 0
@@ -43,20 +148,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-26
-27
-352
-70
+29
+100
+355
+143
 The following sliders represent the number of people per floor of the arena
 15
 0.0
 1
 
 SLIDER
-215
-71
-387
-104
+218
+144
+390
+177
 second_floor
 second_floor
 0
@@ -68,10 +173,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-33
-116
-205
-149
+37
+189
+209
+222
 third_floor
 third_floor
 0
@@ -83,25 +188,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-214
-114
-386
-147
-fourth_floor
-fourth_floor
-0
-100
-49.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-33
-155
-205
+218
 188
+390
+221
+fourth_floor
+fourth_floor
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+37
+228
+209
+261
 fifth_floor
 fifth_floor
 0
@@ -113,13 +218,122 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-24
-219
-362
-295
+23
+278
+361
+320
 The following sliders represent the percentage of the type of poeple in the arena.
 15
 0.0
+1
+
+SLIDER
+33
+328
+206
+361
+percentage_prepared
+percentage_prepared
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+32
+372
+205
+405
+percentage_fighters
+percentage_fighters
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+212
+328
+385
+361
+percentage_listeners
+percentage_listeners
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+30
+442
+203
+475
+number_of_helpers
+number_of_helpers
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+212
+443
+385
+476
+rate_of_fire_spread
+rate_of_fire_spread
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+BUTTON
+133
+42
+197
+76
+setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+209
+42
+273
+76
+go
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
 1
 
 @#$#@#$#@

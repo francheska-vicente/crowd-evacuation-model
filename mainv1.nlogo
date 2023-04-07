@@ -11,43 +11,64 @@ to setup
 end
 
 to setup-floors
-  ask patches with [abs pxcor <= max-pxcor and abs pxcor >= max-pxcor - 5][
-    set pcolor pink
+  ask patches [
+    ; VIP
+    if pxcor <= 28 and pxcor >= -28 and pycor >= -22 and pycor <= 22
+      [ set pcolor sky ]
+    if pxcor = 29 or pxcor = -29 or pxcor = 30 or pxcor = -30 and pycor >= -21 and pycor <= 21
+      [ set pcolor sky ]
+    if pxcor = 31 or pxcor = -31 or pxcor = 32 or pxcor = -32 and pycor >= -20 and pycor <= 20
+      [ set pcolor sky ]
+    if pxcor = 33 or pxcor = -33 or pxcor = 34 or pxcor = -34 and pycor >= -19 and pycor <= 19
+      [ set pcolor sky ]
+    if pxcor = 35 or pxcor = -35 or pxcor = 36 or pxcor = -36 and pycor >= -18 and pycor <= 18
+      [ set pcolor sky ]
+    if pxcor = 37 or pxcor = -37 or pxcor = 38 or pxcor = -38 and pycor >= -17 and pycor <= 17
+      [ set pcolor sky ]
+    if pxcor = 39 or pxcor = -39 or pxcor = 40 or pxcor = -40 and pycor >= -16 and pycor <= 16
+      [ set pcolor sky ]
+    if pxcor = 41 or pxcor = -41 and pycor >= -15 and pycor <= 15
+      [ set pcolor sky ]
 
+    ; 211
+    if pxcor >= 43 and pxcor <= 50 and pycor >= 1 and pycor <= 12
+      [ set pcolor blue ]
+    ; 201
+    if pxcor <= -43 and pxcor >= -50 and pycor >= 1 and pycor <= 12
+      [ set pcolor blue ]
+    ; 212
+    if pxcor >= 43 and pxcor <= 50 and pycor <= -1 and pycor >= -12
+      [ set pcolor blue ]
+    ; 202
+    if pxcor <= -43 and pxcor >= -50 and pycor <= -1 and pycor >= -12
+      [ set pcolor blue ]
+
+    ; 411
+    if pxcor >= 54 and pxcor <= 63 and pycor >= 1 and pycor <= 13
+      [ set pcolor magenta ]
+    ; 401
+    if pxcor <= -54 and pxcor >= -63 and pycor >= 1 and pycor <= 13
+      [ set pcolor magenta ]
+    ; 412
+    if pxcor >= 54 and pxcor <= 63 and pycor <= -1 and pycor >= -13
+      [ set pcolor magenta ]
+    ; 402
+    if pxcor <= -54 and pxcor >= -63 and pycor <= -1 and pycor >= -13
+      [ set pcolor magenta ]
+
+    ; 511
+    if pxcor >= 65 and pxcor <= 72 and pycor >= 1 and pycor <= 13
+      [ set pcolor pink ]
+    ; 501
+    if pxcor <= -65 and pxcor >= -72 and pycor >= 1 and pycor <= 13
+      [ set pcolor pink ]
+    ; 512
+    if pxcor >= 65 and pxcor <= 72 and pycor <= -1 and pycor >= -13
+      [ set pcolor pink ]
+    ; 502
+    if pxcor <= -65 and pxcor >= -72 and pycor <= -1 and pycor >= -13
+      [ set pcolor pink ]
   ]
-
-  ask patches with [abs pycor <= max-pycor and abs pycor >= max-pycor - 3][
-    set pcolor pink
-  ]
-
-  ask patches with [abs pxcor < max-pxcor - 5 and abs pxcor >= max-pxcor - 10 and pcolor = black][
-    set pcolor magenta
-  ]
-
-  ask patches with [abs pycor < max-pycor - 3 and abs pycor >= max-pycor - 6 and pcolor = black][
-    set pcolor magenta
-  ]
-
-  ask patches with [abs pxcor < max-pxcor - 10 and abs pxcor >= max-pxcor - 15 and pcolor = black][
-    set pcolor violet
-  ]
-
-  ask patches with [abs pycor < max-pycor - 6 and abs pycor >= max-pycor - 9 and pcolor = black][
-    set pcolor violet
-  ]
-
-  ask patches with [abs pxcor < max-pxcor - 15 and abs pxcor >= max-pxcor - 20 and pcolor = black][
-    set pcolor blue
-  ]
-
-  ask patches with [abs pycor < max-pycor - 9 and abs pycor >= max-pycor - 12 and pcolor = black][
-    set pcolor blue
-  ]
-
-  ask patches with [pcolor = black] [
-    set pcolor sky
-  ]
-
 end
 
 to setup-people
@@ -61,10 +82,10 @@ to setup-people
     move-to one-of patches with [pcolor = magenta]
   ]
 
-  create-persons third_floor [
-    set color black
-    move-to one-of patches with [pcolor = violet]
-  ]
+;  create-persons third_floor [
+;    set color black
+;    move-to one-of patches with [pcolor = violet]
+;  ]
 
   create-persons second_floor [
     set color black
@@ -83,13 +104,12 @@ to go
 end
 
 
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 420
 27
-1537
-709
+2829
+2437
 -1
 -1
 15.91
@@ -102,10 +122,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--30
-30
--18
-18
+-75
+75
+-75
+75
 0
 0
 1
@@ -176,7 +196,7 @@ fourth_floor
 fourth_floor
 0
 100
-49.0
+50.0
 1
 1
 NIL
