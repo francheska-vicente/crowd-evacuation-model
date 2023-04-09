@@ -30,6 +30,15 @@ to setup-floors
     if pxcor = 41 or pxcor = -41 and pycor >= -15 and pycor <= 15
       [ set pcolor sky ]
 
+    if pxcor >= 33 and pxcor <= 36 and pycor >= 19 and pycor <= 20
+      [ set pcolor sky ]
+    if pxcor <= -33 and pxcor >= -36 and pycor >= 19 and pycor <= 20
+      [ set pcolor sky ]
+    if pxcor >= 33 and pxcor <= 36 and pycor <= -19 and pycor >= -20
+      [ set pcolor sky ]
+    if pxcor <= -33 and pxcor >= -36 and pycor <= -19 and pycor >= -20
+      [ set pcolor sky ]
+
     ; 211
     if pxcor >= 43 and pxcor <= 49 and pycor >= 1 and pycor <= 12
       [ set pcolor blue ]
@@ -1561,13 +1570,297 @@ to setup-floors
       [ set pcolor white ]
     if pxcor >= -32 and pxcor <= 32 and pycor = -43
       [ set pcolor white ]
-    if pxcor >= 32 and pxcor <= 37 and pycor = 42
+    if pxcor >= 32 and pxcor <= 38 and pycor = 42
       [ set pcolor white ]
-    if pxcor <= -32 and pxcor >= -37 and pycor = 42
+    if pxcor <= -32 and pxcor >= -38 and pycor = 42
       [ set pcolor white ]
-    if pxcor >= 32 and pxcor <= 37 and pycor = -42
+    if pxcor >= 32 and pxcor <= 38 and pycor = -42
       [ set pcolor white ]
-    if pxcor <= -32 and pxcor >= -37 and pycor = -42
+    if pxcor <= -32 and pxcor >= -38 and pycor = -42
+      [ set pcolor white ]
+
+    if pxcor >= 38 and pxcor <= 39 and pycor = 41
+      [ set pcolor white ]
+    if pxcor >= 39 and pxcor <= 40 and pycor = 40
+      [ set pcolor white ]
+    if pxcor >= 40 and pxcor <= 41 and pycor = 39
+      [ set pcolor white ]
+    if pxcor >= 41 and pxcor <= 42 and pycor = 38
+      [ set pcolor white ]
+    if pxcor >= 42 and pxcor <= 43 and pycor = 37
+      [ set pcolor white ]
+    if pxcor >= 43 and pxcor <= 44 and pycor = 36
+      [ set pcolor white ]
+    if pxcor >= 44 and pxcor <= 45 and pycor = 35
+      [ set pcolor white ]
+    if pxcor >= 45 and pxcor <= 46 and pycor = 34
+      [ set pcolor white ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = 33
+      [ set pcolor white ]
+    if pxcor >= 47 and pxcor <= 48 and pycor = 32
+      [ set pcolor white ]
+    if pxcor >= 48 and pxcor <= 49 and pycor = 31
+      [ set pcolor white ]
+    if pxcor >= 49 and pxcor <= 50 and pycor = 30
+      [ set pcolor white ]
+    if pxcor >= 50 and pxcor <= 51 and pycor = 29
+      [ set pcolor white ]
+
+    if pxcor <= -38 and pxcor >= -39 and pycor = 41
+      [ set pcolor white ]
+    if pxcor <= -39 and pxcor >= -40 and pycor = 40
+      [ set pcolor white ]
+    if pxcor <= -40 and pxcor >= -41 and pycor = 39
+      [ set pcolor white ]
+    if pxcor <= -41 and pxcor >= -42 and pycor = 38
+      [ set pcolor white ]
+    if pxcor <= -42 and pxcor >= -43 and pycor = 37
+      [ set pcolor white ]
+    if pxcor <= -43 and pxcor >= -44 and pycor = 36
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -45 and pycor = 35
+      [ set pcolor white ]
+    if pxcor <= -45 and pxcor >= -46 and pycor = 34
+      [ set pcolor white ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = 33
+      [ set pcolor white ]
+    if pxcor <= -47 and pxcor >= -48 and pycor = 32
+      [ set pcolor white ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = 31
+      [ set pcolor white ]
+    if pxcor <= -49 and pxcor >= -50 and pycor = 30
+      [ set pcolor white ]
+    if pxcor <= -50 and pxcor >= -51 and pycor = 29
+      [ set pcolor white ]
+
+    if pxcor >= 38 and pxcor <= 39 and pycor = -41
+      [ set pcolor white ]
+    if pxcor >= 39 and pxcor <= 40 and pycor = -40
+      [ set pcolor white ]
+    if pxcor >= 40 and pxcor <= 41 and pycor = -39
+      [ set pcolor white ]
+    if pxcor >= 41 and pxcor <= 42 and pycor = -38
+      [ set pcolor white ]
+    if pxcor >= 42 and pxcor <= 43 and pycor = -37
+      [ set pcolor white ]
+    if pxcor >= 43 and pxcor <= 44 and pycor = -36
+      [ set pcolor white ]
+    if pxcor >= 44 and pxcor <= 45 and pycor = -35
+      [ set pcolor white ]
+    if pxcor >= 45 and pxcor <= 46 and pycor = -34
+      [ set pcolor white ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = -33
+      [ set pcolor white ]
+    if pxcor >= 47 and pxcor <= 48 and pycor = -32
+      [ set pcolor white ]
+    if pxcor >= 48 and pxcor <= 49 and pycor = -31
+      [ set pcolor white ]
+    if pxcor >= 49 and pxcor <= 50 and pycor = -30
+      [ set pcolor white ]
+    if pxcor >= 50 and pxcor <= 51 and pycor = -29
+      [ set pcolor white ]
+
+    if pxcor <= -38 and pxcor >= -39 and pycor = -41
+      [ set pcolor white ]
+    if pxcor <= -39 and pxcor >= -40 and pycor = -40
+      [ set pcolor white ]
+    if pxcor <= -40 and pxcor >= -41 and pycor = -39
+      [ set pcolor white ]
+    if pxcor <= -41 and pxcor >= -42 and pycor = -38
+      [ set pcolor white ]
+    if pxcor <= -42 and pxcor >= -43 and pycor = -37
+      [ set pcolor white ]
+    if pxcor <= -43 and pxcor >= -44 and pycor = -36
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -45 and pycor = -35
+      [ set pcolor white ]
+    if pxcor <= -45 and pxcor >= -46 and pycor = -34
+      [ set pcolor white ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = -33
+      [ set pcolor white ]
+    if pxcor <= -47 and pxcor >= -48 and pycor = -32
+      [ set pcolor white ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = -31
+      [ set pcolor white ]
+    if pxcor <= -49 and pxcor >= -50 and pycor = -30
+      [ set pcolor white ]
+    if pxcor <= -50 and pxcor >= -51 and pycor = -29
+      [ set pcolor white ]
+
+    if pxcor = 51 and pycor >= 25 and pycor <= 29
+      [ set pcolor white ]
+    if pxcor = -51 and pycor >= 25 and pycor <= 29
+      [ set pcolor white ]
+    if pxcor = 51 and pycor <= -25 and pycor >= -29
+      [ set pcolor white ]
+    if pxcor = -51 and pycor <= -25 and pycor >= -29
+      [ set pcolor white ]
+
+    if pxcor = 52 and pycor >= -25 and pycor <= 25
+      [ set pcolor white ]
+    if pxcor = -52 and pycor >= -25 and pycor <= 25
+      [ set pcolor white ]
+
+    if pxcor = 37 and pycor >= 42 and pycor <= 44
+      [ set pcolor white ]
+    if pxcor = 38 and pycor >= 44 and pycor <= 46
+      [ set pcolor white ]
+    if pxcor = 39 and pycor >= 46 and pycor <= 48
+      [ set pcolor white ]
+    if pxcor = 40 and pycor >= 48 and pycor <= 50
+      [ set pcolor white ]
+    if pxcor = 41 and pycor >= 50 and pycor <= 52
+      [ set pcolor white ]
+
+    if pxcor = -37 and pycor >= 42 and pycor <= 44
+      [ set pcolor white ]
+    if pxcor = -38 and pycor >= 44 and pycor <= 46
+      [ set pcolor white ]
+    if pxcor = -39 and pycor >= 46 and pycor <= 48
+      [ set pcolor white ]
+    if pxcor = -40 and pycor >= 48 and pycor <= 50
+      [ set pcolor white ]
+    if pxcor = -41 and pycor >= 50 and pycor <= 52
+      [ set pcolor white ]
+
+    if pxcor = 37 and pycor <= -42 and pycor >= -44
+      [ set pcolor white ]
+    if pxcor = 38 and pycor <= -44 and pycor >= -46
+      [ set pcolor white ]
+    if pxcor = 39 and pycor <= -46 and pycor >= -48
+      [ set pcolor white ]
+    if pxcor = 40 and pycor <= -48 and pycor >= -50
+      [ set pcolor white ]
+    if pxcor = 41 and pycor <= -50 and pycor >= -52
+      [ set pcolor white ]
+
+    if pxcor = -37 and pycor <= -42 and pycor >= -44
+      [ set pcolor white ]
+    if pxcor = -38 and pycor <= -44 and pycor >= -46
+      [ set pcolor white ]
+    if pxcor = -39 and pycor <= -46 and pycor >= -48
+      [ set pcolor white ]
+    if pxcor = -40 and pycor <= -48 and pycor >= -50
+      [ set pcolor white ]
+    if pxcor = -41 and pycor <= -50 and pycor >= -52
+      [ set pcolor white ]
+
+    if pxcor >= 45 and pxcor <= 46 and pycor = 36
+      [ set pcolor white ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = 37
+      [ set pcolor white ]
+    if pxcor >= 47 and pxcor <= 48 and pycor = 38
+      [ set pcolor white ]
+    if pxcor >= 48 and pxcor <= 49 and pycor = 39
+      [ set pcolor white ]
+    if pxcor >= 49 and pxcor <= 50 and pycor = 40
+      [ set pcolor white ]
+    if pxcor >= 50 and pxcor <= 51 and pycor = 41
+      [ set pcolor white ]
+    if pxcor >= 51 and pxcor <= 52 and pycor = 42
+      [ set pcolor white ]
+
+    if pxcor <= -45 and pxcor >= -46 and pycor = 36
+      [ set pcolor white ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = 37
+      [ set pcolor white ]
+    if pxcor <= -47 and pxcor >= -48 and pycor = 38
+      [ set pcolor white ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = 39
+      [ set pcolor white ]
+    if pxcor <= -49 and pxcor >= -50 and pycor = 40
+      [ set pcolor white ]
+    if pxcor <= -50 and pxcor >= -51 and pycor = 41
+      [ set pcolor white ]
+    if pxcor <= -51 and pxcor >= -52 and pycor = 42
+      [ set pcolor white ]
+
+    if pxcor >= 45 and pxcor <= 46 and pycor = -36
+      [ set pcolor white ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = -37
+      [ set pcolor white ]
+    if pxcor >= 47 and pxcor <= 48 and pycor = -38
+      [ set pcolor white ]
+    if pxcor >= 48 and pxcor <= 49 and pycor = -39
+      [ set pcolor white ]
+    if pxcor >= 49 and pxcor <= 50 and pycor = -40
+      [ set pcolor white ]
+    if pxcor >= 50 and pxcor <= 51 and pycor = -41
+      [ set pcolor white ]
+    if pxcor >= 51 and pxcor <= 52 and pycor = -42
+      [ set pcolor white ]
+
+    if pxcor <= -45 and pxcor >= -46 and pycor = -36
+      [ set pcolor white ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = -37
+      [ set pcolor white ]
+    if pxcor <= -47 and pxcor >= -48 and pycor = -38
+      [ set pcolor white ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = -39
+      [ set pcolor white ]
+    if pxcor <= -49 and pxcor >= -50 and pycor = -40
+      [ set pcolor white ]
+    if pxcor <= -50 and pxcor >= -51 and pycor = -41
+      [ set pcolor white ]
+    if pxcor <= -51 and pxcor >= -52 and pycor = -42
+      [ set pcolor white ]
+
+    if pxcor >= 52 and pxcor <= 53 and pycor = 28
+      [ set pcolor white ]
+    if pxcor >= 53 and pxcor <= 55 and pycor = 29
+      [ set pcolor white ]
+    if pxcor >= 55 and pxcor <= 57 and pycor = 30
+      [ set pcolor white ]
+    if pxcor >= 57 and pxcor <= 59 and pycor = 31
+      [ set pcolor white ]
+    if pxcor >= 59 and pxcor <= 60 and pycor = 32
+      [ set pcolor white ]
+
+    if pxcor <= -52 and pxcor >= -53 and pycor = 28
+      [ set pcolor white ]
+    if pxcor <= -53 and pxcor >= -55 and pycor = 29
+      [ set pcolor white ]
+    if pxcor <= -55 and pxcor >= -57 and pycor = 30
+      [ set pcolor white ]
+    if pxcor <= -57 and pxcor >= -59 and pycor = 31
+      [ set pcolor white ]
+    if pxcor <= -59 and pxcor >= -60 and pycor = 32
+      [ set pcolor white ]
+
+    if pxcor >= 52 and pxcor <= 53 and pycor = -28
+      [ set pcolor white ]
+    if pxcor >= 53 and pxcor <= 55 and pycor = -29
+      [ set pcolor white ]
+    if pxcor >= 55 and pxcor <= 57 and pycor = -30
+      [ set pcolor white ]
+    if pxcor >= 57 and pxcor <= 59 and pycor = -31
+      [ set pcolor white ]
+    if pxcor >= 59 and pxcor <= 60 and pycor = -32
+      [ set pcolor white ]
+
+    if pxcor <= -52 and pxcor >= -53 and pycor = -28
+      [ set pcolor white ]
+    if pxcor <= -53 and pxcor >= -55 and pycor = -29
+      [ set pcolor white ]
+    if pxcor <= -55 and pxcor >= -57 and pycor = -30
+      [ set pcolor white ]
+    if pxcor <= -57 and pxcor >= -59 and pycor = -31
+      [ set pcolor white ]
+    if pxcor <= -59 and pxcor >= -60 and pycor = -32
+      [ set pcolor white ]
+
+    if pxcor >= 53 and pxcor <= 62 and pycor = 14
+      [ set pcolor white ]
+    if pxcor <= -53 and pxcor >= -62 and pycor = 14
+      [ set pcolor white ]
+    if pxcor >= 53 and pxcor <= 62 and pycor = -14
+      [ set pcolor white ]
+    if pxcor <= -53 and pxcor >= -62 and pycor = -14
+      [ set pcolor white ]
+
+    if pxcor >= 53 and pxcor <= 62 and pycor = 0
+      [ set pcolor white ]
+    if pxcor <= -53 and pxcor >= -62 and pycor = 0
       [ set pcolor white ]
 
     ; paths (2nd)
@@ -1580,8 +1873,202 @@ to setup-floors
     if pxcor = -7 or pxcor = -8 or pxcor = -22 or pxcor = -23 and pycor <= -24 and pycor >= -40
       [ set pcolor white ]
 
+    if pxcor >= -30 and pxcor <= 30 and pycor = 24
+      [ set pcolor white ]
+    if pxcor >= -30 and pxcor <= 30 and pycor = -24
+      [ set pcolor white ]
 
+    if pxcor >= 30 and pxcor <= 32 and pycor = 23
+      [ set pcolor white ]
+    if pxcor <= -30 and pxcor >= -32 and pycor = 23
+      [ set pcolor white ]
+    if pxcor >= 30 and pxcor <= 32 and pycor = -23
+      [ set pcolor white ]
+    if pxcor <= -30 and pxcor >= -32 and pycor = -23
+      [ set pcolor white ]
 
+    if pxcor >= 32 and pxcor <= 35 and pycor = 22
+      [ set pcolor white ]
+    if pxcor >= 35 and pxcor <= 38 and pycor = 23
+      [ set pcolor white ]
+    if pxcor = 38 and pycor <= 23 and pycor >= 19
+      [ set pcolor white ]
+    if pxcor >= 38 and pxcor <= 40 and pycor = 19
+      [ set pcolor white ]
+    if pxcor >= 40 and pxcor <= 42 and pycor = 18
+      [ set pcolor white ]
+    if pxcor >= 42 and pxcor <= 43 and pycor = 17
+      [ set pcolor white ]
+
+    if pxcor <= -32 and pxcor >= -35 and pycor = 22
+      [ set pcolor white ]
+    if pxcor <= -35 and pxcor >= -38 and pycor = 23
+      [ set pcolor white ]
+    if pxcor = -38 and pycor <= 23 and pycor >= 19
+      [ set pcolor white ]
+    if pxcor <= -38 and pxcor >= -40 and pycor = 19
+      [ set pcolor white ]
+    if pxcor <= -40 and pxcor >= -42 and pycor = 18
+      [ set pcolor white ]
+    if pxcor <= -42 and pxcor >= -43 and pycor = 17
+      [ set pcolor white ]
+
+    if pxcor >= 32 and pxcor <= 35 and pycor = -22
+      [ set pcolor white ]
+    if pxcor >= 35 and pxcor <= 38 and pycor = -23
+      [ set pcolor white ]
+    if pxcor = 38 and pycor >= -23 and pycor <= -19
+      [ set pcolor white ]
+    if pxcor >= 38 and pxcor <= 40 and pycor = -19
+      [ set pcolor white ]
+    if pxcor >= 40 and pxcor <= 42 and pycor = -18
+      [ set pcolor white ]
+    if pxcor >= 42 and pxcor <= 43 and pycor = -17
+      [ set pcolor white ]
+
+    if pxcor <= -32 and pxcor >= -35 and pycor = -22
+      [ set pcolor white ]
+    if pxcor <= -35 and pxcor >= -38 and pycor = -23
+      [ set pcolor white ]
+    if pxcor = -38 and pycor >= -23 and pycor <= -19
+      [ set pcolor white ]
+    if pxcor <= -38 and pxcor >= -40 and pycor = -19
+      [ set pcolor white ]
+    if pxcor <= -40 and pxcor >= -42 and pycor = -18
+      [ set pcolor white ]
+    if pxcor <= -42 and pxcor >= -43 and pycor = -17
+      [ set pcolor white ]
+
+    if pxcor = 43 and pycor >= -16 and pycor <= 16
+      [ set pcolor white ]
+    if pxcor = -43 and pycor >= -16 and pycor <= 16
+      [ set pcolor white ]
+
+    if pxcor = 29 and pycor = 25
+      [ set pcolor white ]
+    if pxcor = 30 and pycor >= 25 and pycor <= 27
+      [ set pcolor white ]
+    if pxcor = 31 and pycor >= 27 and pycor <= 29
+      [ set pcolor white ]
+    if pxcor = 32 and pycor >= 29 and pycor <= 31
+      [ set pcolor white ]
+    if pxcor = 33 and pycor >= 31 and pycor <= 33
+      [ set pcolor white ]
+    if pxcor = 34 and pycor >= 33 and pycor <= 35
+      [ set pcolor white ]
+    if pxcor = 35 and pycor >= 35 and pycor <= 37
+      [ set pcolor white ]
+    if pxcor = 36 and pycor >= 37 and pycor <= 38
+      [ set pcolor white ]
+
+    if pxcor = 29 and pycor = -25
+      [ set pcolor white ]
+    if pxcor = 30 and pycor <= -25 and pycor >= -27
+      [ set pcolor white ]
+    if pxcor = 31 and pycor <= -27 and pycor >= -29
+      [ set pcolor white ]
+    if pxcor = 32 and pycor <= -29 and pycor >= -31
+      [ set pcolor white ]
+    if pxcor = 33 and pycor <= -31 and pycor >= -33
+      [ set pcolor white ]
+    if pxcor = 34 and pycor <= -33 and pycor >= -35
+      [ set pcolor white ]
+    if pxcor = 35 and pycor <= -35 and pycor >= -37
+      [ set pcolor white ]
+    if pxcor = 36 and pycor <= -37 and pycor >= -38
+      [ set pcolor white ]
+
+    if pxcor = -29 and pycor = 25
+      [ set pcolor white ]
+    if pxcor = -30 and pycor >= 25 and pycor <= 27
+      [ set pcolor white ]
+    if pxcor = -31 and pycor >= 27 and pycor <= 29
+      [ set pcolor white ]
+    if pxcor = -32 and pycor >= 29 and pycor <= 31
+      [ set pcolor white ]
+    if pxcor = -33 and pycor >= 31 and pycor <= 33
+      [ set pcolor white ]
+    if pxcor = -34 and pycor >= 33 and pycor <= 35
+      [ set pcolor white ]
+    if pxcor = -35 and pycor >= 35 and pycor <= 37
+      [ set pcolor white ]
+    if pxcor = -36 and pycor >= 37 and pycor <= 38
+      [ set pcolor white ]
+
+    if pxcor = -29 and pycor = -25
+      [ set pcolor white ]
+    if pxcor = -30 and pycor <= -25 and pycor >= -27
+      [ set pcolor white ]
+    if pxcor = -31 and pycor <= -27 and pycor >= -29
+      [ set pcolor white ]
+    if pxcor = -32 and pycor <= -29 and pycor >= -31
+      [ set pcolor white ]
+    if pxcor = -33 and pycor <= -31 and pycor >= -33
+      [ set pcolor white ]
+    if pxcor = -34 and pycor <= -33 and pycor >= -35
+      [ set pcolor white ]
+    if pxcor = -35 and pycor <= -35 and pycor >= -37
+      [ set pcolor white ]
+    if pxcor = -36 and pycor <= -37 and pycor >= -38
+      [ set pcolor white ]
+
+    if pxcor >= 39 and pxcor <= 40 and pycor = 23
+      [ set pcolor white ]
+    if pxcor >= 40 and pxcor <= 42 and pycor = 24
+      [ set pcolor white ]
+    if pxcor >= 42 and pxcor <= 44 and pycor = 25
+      [ set pcolor white ]
+    if pxcor >= 44 and pxcor <= 46 and pycor = 26
+      [ set pcolor white ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = 27
+      [ set pcolor white ]
+
+    if pxcor <= -39 and pxcor >= -40 and pycor = 23
+      [ set pcolor white ]
+    if pxcor <= -40 and pxcor >= -42 and pycor = 24
+      [ set pcolor white ]
+    if pxcor <= -42 and pxcor >= -44 and pycor = 25
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -46 and pycor = 26
+      [ set pcolor white ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = 27
+      [ set pcolor white ]
+
+    if pxcor >= 39 and pxcor <= 40 and pycor = -23
+      [ set pcolor white ]
+    if pxcor >= 40 and pxcor <= 42 and pycor = -24
+      [ set pcolor white ]
+    if pxcor >= 42 and pxcor <= 44 and pycor = -25
+      [ set pcolor white ]
+    if pxcor >= 44 and pxcor <= 46 and pycor = -26
+      [ set pcolor white ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = -27
+      [ set pcolor white ]
+
+    if pxcor <= -39 and pxcor >= -40 and pycor = -23
+      [ set pcolor white ]
+    if pxcor <= -40 and pxcor >= -42 and pycor = -24
+      [ set pcolor white ]
+    if pxcor <= -42 and pxcor >= -44 and pycor = -25
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -46 and pycor = -26
+      [ set pcolor white ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = -27
+      [ set pcolor white ]
+
+    if pxcor >= 44 and pxcor <= 49 and pycor = 13
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -49 and pycor = 13
+      [ set pcolor white ]
+    if pxcor >= 44 and pxcor <= 49 and pycor = -13
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -49 and pycor = -13
+      [ set pcolor white ]
+
+    if pxcor >= 44 and pxcor <= 49 and pycor = 0
+      [ set pcolor white ]
+    if pxcor <= -44 and pxcor >= -49 and pycor = 0
+      [ set pcolor white ]
 
     ; exits (5th)
     if (pxcor = 7 or pxcor = 8 or pxcor = 22 or pxcor = 23) and pycor = 62
@@ -1620,6 +2107,19 @@ to setup-floors
     if pxcor <= -69 and pxcor >= -70 and pycor = -36
       [ set pcolor green ]
 
+    if pxcor >= 70 and pxcor <= 71 and pycor = 14
+      [ set pcolor green ]
+    if pxcor <= -70 and pxcor >= -71 and pycor = 14
+      [ set pcolor green ]
+    if pxcor >= 70 and pxcor <= 71 and pycor = -14
+      [ set pcolor green ]
+    if pxcor <= -70 and pxcor >= -71 and pycor = -14
+      [ set pcolor green ]
+
+    if pxcor >= 70 and pxcor <= 71 and pycor = 0
+      [ set pcolor green ]
+    if pxcor <= -70 and pxcor >= -71 and pycor = 0
+      [ set pcolor green ]
 
     ; exits (4th)
     if (pxcor = 7 or pxcor = 8 or pxcor = 22 or pxcor = 23) and pycor = 54
@@ -1630,8 +2130,100 @@ to setup-floors
       [ set pcolor green ]
     if (pxcor = -7 or pxcor = -8 or pxcor = -22 or pxcor = -23) and pycor = -54
       [ set pcolor green ]
-  ]
 
+    if pxcor = 41 and pycor >= 51 and pycor <= 52
+      [ set pcolor green ]
+    if pxcor = -41 and pycor >= 51 and pycor <= 52
+      [ set pcolor green ]
+    if pxcor = 41 and pycor <= -51 and pycor >= -52
+      [ set pcolor green ]
+    if pxcor = -41 and pycor <= -51 and pycor >= -52
+      [ set pcolor green ]
+
+    if pxcor >= 51 and pxcor <= 52 and pycor = 42
+      [ set pcolor green ]
+    if pxcor <= -51 and pxcor >= -52 and pycor = 42
+      [ set pcolor green ]
+    if pxcor >= 51 and pxcor <= 52 and pycor = -42
+      [ set pcolor green ]
+    if pxcor <= -51 and pxcor >= -52 and pycor = -42
+      [ set pcolor green ]
+
+    if pxcor >= 59 and pxcor <= 60 and pycor = 32
+      [ set pcolor green ]
+    if pxcor <= -59 and pxcor >= -60 and pycor = 32
+      [ set pcolor green ]
+    if pxcor >= 59 and pxcor <= 60 and pycor = -32
+      [ set pcolor green ]
+    if pxcor <= -59 and pxcor >= -60 and pycor = -32
+      [ set pcolor green ]
+
+    if pxcor >= 61 and pxcor <= 62 and pycor = 14
+      [ set pcolor green ]
+    if pxcor <= -61 and pxcor >= -62 and pycor = 14
+      [ set pcolor green ]
+    if pxcor >= 61 and pxcor <= 62 and pycor = -14
+      [ set pcolor green ]
+    if pxcor <= -61 and pxcor >= -62 and pycor = -14
+      [ set pcolor green ]
+
+    if pxcor >= 61 and pxcor <= 62 and pycor = 0
+      [ set pcolor green ]
+    if pxcor <= -61 and pxcor >= -62 and pycor = 0
+      [ set pcolor green ]
+
+    ; exits (2nd)
+    if (pxcor = 7 or pxcor = 8 or pxcor = 22 or pxcor = 23) and pycor = 40
+      [ set pcolor green ]
+    if (pxcor = -7 or pxcor = -8 or pxcor = -22 or pxcor = -23) and pycor = 40
+      [ set pcolor green ]
+    if (pxcor = 7 or pxcor = 8 or pxcor = 22 or pxcor = 23) and pycor = -40
+      [ set pcolor green ]
+    if (pxcor = -7 or pxcor = -8 or pxcor = -22 or pxcor = -23) and pycor = -40
+      [ set pcolor green ]
+
+    if pxcor = 36 and pycor >= 37 and pycor <= 38
+      [ set pcolor green ]
+    if pxcor = 36 and pycor <= -37 and pycor >= -38
+      [ set pcolor green ]
+    if pxcor = -36 and pycor >= 37 and pycor <= 38
+      [ set pcolor green ]
+    if pxcor = -36 and pycor <= -37 and pycor >= -38
+      [ set pcolor green ]
+
+    if pxcor >= 46 and pxcor <= 47 and pycor = 27
+      [ set pcolor green ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = 27
+      [ set pcolor green ]
+    if pxcor >= 46 and pxcor <= 47 and pycor = -27
+      [ set pcolor green ]
+    if pxcor <= -46 and pxcor >= -47 and pycor = -27
+      [ set pcolor green ]
+
+    if pxcor >= 48 and pxcor <= 49 and pycor = 13
+      [ set pcolor green ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = 13
+      [ set pcolor green ]
+    if pxcor >= 48 and pxcor <= 49 and pycor = -13
+      [ set pcolor green ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = -13
+      [ set pcolor green ]
+
+    if pxcor >= 48 and pxcor <= 49 and pycor = 0
+      [ set pcolor green ]
+    if pxcor <= -48 and pxcor >= -49 and pycor = 0
+      [ set pcolor green ]
+
+    ; exits (1st)
+    if (pxcor = 36 and pycor = 20) or (pxcor = 35 and pycor = 20) or (pxcor = 36 and pycor = 19)
+      [ set pcolor green ]
+    if (pxcor = -36 and pycor = 20) or (pxcor = -35 and pycor = 20) or (pxcor = -36 and pycor = 19)
+      [ set pcolor green ]
+    if (pxcor = 36 and pycor = -20) or (pxcor = 35 and pycor = 20) or (pxcor = 36 and pycor = 19)
+      [ set pcolor green ]
+    if (pxcor = -36 and pycor = -20) or (pxcor = -35 and pycor = 20) or (pxcor = -36 and pycor = 19)
+      [ set pcolor green ]
+  ]
 end
 
 to setup-people
@@ -1666,13 +2258,12 @@ to go
 
 end
 
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 420
 27
-2829
-2437
+2830
+2438
 -1
 -1
 15.91
@@ -1844,7 +2435,7 @@ number_of_helpers
 number_of_helpers
 0
 100
-70.0
+100.0
 1
 1
 NIL
@@ -1859,17 +2450,17 @@ rate_of_fire_spread
 rate_of_fire_spread
 0
 100
-71.0
+100.0
 1
 1
 NIL
 HORIZONTAL
 
 BUTTON
-133
-42
-197
-76
+339
+522
+403
+556
 setup
 setup
 NIL
