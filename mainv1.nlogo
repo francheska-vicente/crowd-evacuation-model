@@ -1,11 +1,29 @@
 breed [ persons person ]
 
+globals [
+  fire-kills
+  person-evacuated
+]
+
+persons-own [
+  behavior
+  floor-number
+  nearest-exit
+  dist1
+  dist2
+  dist3
+  dist4
+  speed
+]
+
 to setup
   clear-all
 
   setup-floors
-
   setup-people
+  setup-fire
+
+  set fire-kills 0
 
   reset-ticks
 end
@@ -2223,50 +2241,207 @@ to setup-floors
       [ set pcolor green ]
     if (pxcor = -36 and pycor = -20) or (pxcor = -35 and pycor = -20) or (pxcor = -36 and pycor = -19)
       [ set pcolor green ]
+
+
   ]
+  ask patches with [ pcolor = black ] [
+      if pxcor <= 66 and pxcor >= -66 and pycor <= 55 and pycor >= -55
+        [ set pcolor gray ]
+    ]
+    ask patches with [ pcolor = gray ] [
+      if pxcor <= 66 and pxcor >= 59 and pycor <= 55 and pycor >= 47
+        [ set pcolor black ]
+      if pxcor >= -66 and pxcor <= -59 and pycor <= 55 and pycor >= 47
+        [ set pcolor black ]
+      if pxcor <= 66 and pxcor >= 59 and pycor >= -55 and pycor <= -47
+        [ set pcolor black ]
+      if pxcor >= -66 and pxcor <= -59 and pycor >= -55 and pycor <= -47
+        [ set pcolor black ]
+    ]
 end
 
 to setup-people
   create-persons fifth_floor [
-    set color black
+    set floor-number 5
     move-to one-of patches with [pcolor = pink]
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = pink] >= 1] [distance myself]
   ]
 
   create-persons fourth_floor [
-    set color black
+    set floor-number 4
     move-to one-of patches with [pcolor = magenta]
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = magenta] >= 1] [distance myself]
   ]
 
-;  create-persons third_floor [
-;    set color black
-;    move-to one-of patches with [pcolor = violet]
-;  ]
-
   create-persons second_floor [
-    set color black
+    set floor-number 2
     move-to one-of patches with [pcolor = blue]
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = blue] >= 1] [distance myself]
   ]
 
   create-persons first_floor [
-    set color black
+    set floor-number 1
     move-to one-of patches with [pcolor = sky]
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = sky] >= 1] [distance myself]
+
+  ]
+
+  ask persons [
+    set color black
+    set speed 0.5 + random-float 1
+    set behavior "n"
+    face nearest-exit
+  ]
+
+  ask n-of ((fifth_floor + fourth_floor + second_floor + first_floor) / 100 * percentage_prepared) persons with [behavior = "n"] [
+    set color red
+    set behavior "P"
+  ]
+
+  ask n-of ((fifth_floor + fourth_floor + second_floor + first_floor) / 100 * percentage_listeners) persons with [behavior = "n"] [
+    set color yellow
+    set behavior "L"
+  ]
+
+end
+
+to setup-fire
+  ask patch fire_x fire_y [ set pcolor orange ]
+end
+
+to spread-fire
+  ; spread fire after 2 ticks
+  if ticks mod 2 = 0 [
+    ask patches with [ pcolor = orange ] [
+      ask neighbors with [ pcolor != black ] [
+
+        ; slower fire if changing floors
+        ifelse pcolor = grey
+        [
+          ; faster fire if neighbors are on fire
+          if count neighbors with [ pcolor = orange ] = 4 [ set pcolor orange ]
+          if random 50 = 0  [ set pcolor orange ]
+        ]
+        [
+          if random 5 = 0 [ set pcolor orange ]
+        ]
+      ]
+    ]
+  ]
+
+  ; kills people in the fire
+  ask persons [
+    if [ pcolor ] of patch-here = orange [
+      set fire-kills fire-kills + 1
+      die
+    ]
+  ]
+end
+
+to move-prepared
+  find-nearest-exit
+  ask persons with [ behavior = "P" ] [
+    face nearest-exit
+      ifelse distance nearest-exit < speed
+      [
+        move-to nearest-exit
+        set person-evacuated person-evacuated + 1
+        die
+      ]
+      [
+        if any? turtles-on patch-ahead speed or [pcolor] of patch-ahead speed = gray [ifelse random 2 = 0 [right 45 + random 45] [left 45 + random 45]]
+        if [pcolor] of patch-ahead speed != gray [forward speed]
+      ]
+  ]
+
+end
+
+to move-listeners
+  ask persons with [ behavior = "L" ] [
+    if min-one-of persons with [ behavior = "P" ] [ distance myself ] != nobody [ face min-one-of persons with [ behavior = "P" ] [ distance myself ] ]
+    if any? turtles-on patch-ahead speed or [pcolor] of patch-ahead speed = gray [ifelse random 2 = 0 [right 45 + random 45] [left 45 + random 45]]
+    if [pcolor] of patch-ahead speed != gray [forward speed]
+    if distance min-one-of patches with [pcolor = green] [distance myself] <= 10 [face min-one-of patches with [pcolor = green] [distance myself] forward speed]
+    if [pcolor] of patch-ahead speed = green [
+      forward speed
+      set person-evacuated person-evacuated + 1
+      die
+    ]
+  ]
+
+end
+
+to find-nearest-exit
+  ask patches with [ pcolor = green ] [
+    if any? patches with [pcolor = orange] in-radius 5 and not any? persons in-radius 5 [
+      set pcolor lime
+    ]
+  ]
+
+  ask persons with [ floor-number = 5 and behavior = "P" ] [
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = pink] >= 1] [ distance myself ]
+  ]
+
+  ask persons with [ floor-number = 4 and behavior = "P" ] [
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = magenta] >= 1] [ distance myself ]
+  ]
+
+  ask persons with [ floor-number = 2 and behavior = "P" ] [
+    set nearest-exit min-one-of patches with [pcolor = green and count neighbors with [pcolor = blue] >= 1] [ distance myself ]
+  ]
+
+  ask persons with [ floor-number = 1 and behavior = "P" ] [
+    let fire1 1000000
+    let fire2 1000000
+    let fire3 1000000
+    let fire4 1000000
+    if dist1 != 1000000 [
+      set dist1 distancexy 35 20
+      ask patch 35 20 [ set fire1 distance min-one-of patches with [pcolor = orange] [distance myself] ]
+      if fire1 < dist1 [set dist1 1000000]
+    ]
+
+    if dist2 != 1000000 [
+      set dist2 distancexy -35 20
+      ask patch -35 20 [ set fire2 distance min-one-of patches with [pcolor = orange] [distance myself] ]
+      if fire2 < dist2 [set dist2 1000000]
+    ]
+
+    if dist3 != 1000000 [
+      set dist3 distancexy 35 -20
+      ask patch 35 -20 [ set fire3 distance min-one-of patches with [pcolor = orange] [distance myself] ]
+      if fire3 < dist3 [set dist3 1000000]
+    ]
+
+    if dist4 != 1000000 [
+      set dist4 distancexy -35 -20
+      ask patch -35 -20 [ set fire4 distance min-one-of patches with [pcolor = orange] [distance myself] ]
+      if fire4 < dist4 [set dist4 1000000]
+    ]
+
+    let curr-dist dist1
+    set nearest-exit patch 35 20
+    if dist2 < curr-dist [set nearest-exit patch -35 20 set curr-dist dist2]
+    if dist3 < curr-dist [set nearest-exit patch 35 -20 set curr-dist dist3]
+    if dist4 < curr-dist [set nearest-exit patch -35 -20 set curr-dist dist4]
   ]
 end
 
 to go
-
-
+  move-prepared
+  move-listeners
+  spread-fire
+  tick
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 420
 27
-2830
-2438
+1183
+791
 -1
 -1
-15.91
+5.0
 1
 10
 1
@@ -2294,9 +2469,9 @@ SLIDER
 first_floor
 first_floor
 0
-100
-40.0
-1
+500
+500.0
+20
 1
 NIL
 HORIZONTAL
@@ -2319,54 +2494,39 @@ SLIDER
 second_floor
 second_floor
 0
-100
-58.0
-1
+500
+60.0
+20
 1
 NIL
 HORIZONTAL
 
 SLIDER
 37
-189
+186
 209
-222
-third_floor
-third_floor
+219
+fourth_floor
+fourth_floor
 0
-100
-55.0
-1
+500
+60.0
+20
 1
 NIL
 HORIZONTAL
 
 SLIDER
+217
+185
+389
 218
-188
-390
-221
-fourth_floor
-fourth_floor
-0
-100
-88.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-37
-228
-209
-261
 fifth_floor
 fifth_floor
 0
-100
-94.0
-1
+500
+60.0
+20
 1
 NIL
 HORIZONTAL
@@ -2390,7 +2550,7 @@ percentage_prepared
 percentage_prepared
 0
 100
-72.0
+70.0
 1
 1
 NIL
@@ -2405,7 +2565,7 @@ percentage_fighters
 percentage_fighters
 0
 100
-46.0
+0.0
 1
 1
 NIL
@@ -2420,7 +2580,7 @@ percentage_listeners
 percentage_listeners
 0
 100
-80.0
+30.0
 1
 1
 NIL
@@ -2457,10 +2617,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-339
-522
-403
-556
+142
+43
+206
+77
 setup
 setup
 NIL
@@ -2476,11 +2636,11 @@ NIL
 BUTTON
 209
 42
-273
-76
-go
-go
+276
+79
 NIL
+go
+T
 1
 T
 OBSERVER
@@ -2489,6 +2649,58 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+32
+501
+205
+534
+fire_x
+fire_x
+-71
+71
+30.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+216
+500
+389
+533
+fire_y
+fire_y
+-62
+62
+14.0
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+260
+587
+381
+632
+NIL
+fire-kills
+0
+1
+11
+
+MONITOR
+262
+638
+379
+683
+NIL
+person-evacuated
+0
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
