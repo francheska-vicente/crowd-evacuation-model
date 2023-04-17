@@ -981,7 +981,12 @@ to move-fighters
       ; get fire extinguisher
       if nearest-extinguisher != nobody and distance nearest-extinguisher < 2 [
         set has-extinguisher true
-        ask nearest-extinguisher [ set fire-extinguisher 0 ]
+        ask nearest-extinguisher [ set fire-extinguisher 0
+          if curr-floor = 1 [set pcolor sky]
+          if curr-floor = 2 [set pcolor blue]
+          if curr-floor = 4 [set pcolor magenta]
+          if curr-floor = 5 [set pcolor pink]
+        ]
       ]
 
       ; extinguish fire

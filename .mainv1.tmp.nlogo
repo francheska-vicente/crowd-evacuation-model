@@ -935,13 +935,10 @@ to move-helpers
       let nearest-alert-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = true ] [ distance myself ]
       let nearest-lost-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [ distance myself ]
 
-       ifelse front-is-wall-or-person? [
-        ifelse left-is-wall-or-person? [ right 45 + random 135 ][
-          ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][
-      ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face assigned-exit][
-        ifelse exit-distance > 30 [face assigned-exit][
-          ifelse nearest-alert-listener != nobody [ face assigned-exit ][
-            ifelse nearest-lost-listener != nobody [ face nearest-lost-listener if distance nearest-lost-listener <= 10 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit ]]]]]
+        ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face assigned-exit][
+          ifelse exit-distance > 30 [face assigned-exit][
+            ifelse nearest-alert-listener != nobody [ face assigned-exit ][
+              ifelse nearest-lost-listener != nobody [ face nearest-lost-listener if distance nearest-lost-listener <= 10 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit ]]]]
 
       forward speed
 
@@ -965,22 +962,26 @@ to move-fighters
       let nearest-extinguisher min-one-of patches with [ floor-number-patch = curr-floor and fire-extinguisher = 1 ] [ distance myself ]
       let nearest-fire min-one-of patches with [ floor-number-patch = curr-floor and pcolor = orange ] [ distance myself ]
       if fire-count > 0 [ find-nearest-exit ]
+      let empty-patch one-of patches in-radius speed with [ count turtles-here = 0 and floor-number-patch = curr-floor ]
 
-      ; away from fire
-      ifelse nearest-fire != nobody and distance nearest-fire < 1 [ face nearest-fire right 180 ] [
-        ; get fire extinguisher if available and has none
-        ifelse has-extinguisher = false and nearest-extinguisher != nobody [ face nearest-extinguisher ][
-          ; evacuate if no more fire extiguishers
-          ifelse has-extinguisher = false and nearest-extinguisher = nobody [ face nearest-exit ][
-            ; put out fires if possible, otherwise evacuate
-            ifelse extinguisher-amount > 0 and fire-count < 200 and fire-count != 0 and count patches with [ floor-number-patch = curr-floor and pcolor = orange ] != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]
+      ifelse front-is-wall-or-person? [
+        ifelse left-is-wall-or-person? [ right 45 + random 135 ][
+          ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][
+        ; away from fire
+        ifelse nearest-fire != nobody and distance nearest-fire < 1 [ face nearest-fire right 180 ] [
+          ; get fire extinguisher if available and has none
+          ifelse has-extinguisher = false and nearest-extinguisher != nobody [ face nearest-extinguisher ][
+            ; evacuate if no more fire extiguishers
+            ifelse has-extinguisher = false and nearest-extinguisher = nobody [ face nearest-exit ][
+              ; put out fires if possible, otherwise evacuate
+              ifelse extinguisher-amount > 0 and fire-count < 200 and fire-count != 0 and count patches with [ floor-number-patch = curr-floor and pcolor = orange ] != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]]
 
       forward speed
 
       ; get fire extinguisher
       if nearest-extinguisher != nobody and distance nearest-extinguisher < 2 [
         set has-extinguisher true
-        ask nearest-extinguisher [ set fire-extinguisher 0 ]
+        ask nearest-extinguisher [ set fire-extinguisher 0 set pcolor ]
       ]
 
       ; extinguish fire
@@ -1205,7 +1206,7 @@ percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-100.0
+0.0
 1
 1
 NIL
@@ -1220,7 +1221,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-0.0
+100.0
 1
 1
 NIL
