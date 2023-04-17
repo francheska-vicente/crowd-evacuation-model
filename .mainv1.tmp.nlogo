@@ -894,7 +894,7 @@ to move-listeners
       if [ pcolor ] of patch-here = orange [ set listener-deaths listener-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
       let curr-floor floor-number-turtle
-      set nearest-visible-exit patches in-radius 10 with [ pcolor = green and floor-number-patch = curr-floor ]
+      set nearest-visible-exit patches in-radius 5 with [ pcolor = green and floor-number-patch = curr-floor ]
       let nearest-fire min-one-of patches with [ pcolor = orange ] [ distance myself ]
       let nearest-helper min-one-of helpers with [ floor-number-turtle = curr-floor ] [ distance myself ]
       let nearest-person min-one-of turtles with [ floor-number-turtle = curr-floor ] [ distance myself ]
@@ -902,7 +902,7 @@ to move-listeners
 
       ifelse front-is-wall-or-person? [
         ifelse left-is-wall-or-person? [ right 45 + random 135 ][
-          ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][
+            ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][
         ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face nearest-fire right 180 ][
           ifelse count nearest-visible-exit != 0 [ face min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself] ][
             ifelse is-alerted = true [ face nearest-helper ][
@@ -911,7 +911,7 @@ to move-listeners
 
       if not front-is-wall-or-person? [forward speed]
 
-      if nearest-visible-exit != nobody and distance min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself] < speed
+      if count nearest-visible-exit != 0 and distance min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself] < speed
       [
         move-to min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself]
         set listener-evacuated listener-evacuated + 1
@@ -933,12 +933,19 @@ to move-helpers
       let exit-distance distance assigned-exit
       let nearest-fire min-one-of patches with [ pcolor = orange ] [ distance myself ]
       let nearest-alert-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = true ] [ distance myself ]
-      let nearest-lost-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [ distance myself ]
+      let lost-listeners listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ]
 
         ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face assigned-exit][
           ifelse exit-distance > 30 [face assigned-exit][
             ifelse nearest-alert-listener != nobody [ face assigned-exit ][
-              ifelse nearest-lost-listener != nobody [ face nearest-lost-listener if distance nearest-lost-listener <= 10 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit ]]]]
+            ifelse count lost-listeners != 0 [
+              face min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [distance myself]
+              ask lost-listeners in-radius 10 [
+                set is-alerted true
+                let nearest-lost-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [ distance myself ]
+                if nearest-lost-listener != nobody [ face nearest-lost-listener ]
+            ]]
+            [ face nearest-fire ]]]]
 
       forward speed
 
@@ -981,7 +988,12 @@ to move-fighters
       ; get fire extinguisher
       if nearest-extinguisher != nobody and distance nearest-extinguisher < 2 [
         set has-extinguisher true
-        ask nearest-extinguisher [ set fire-extinguisher 0 set pcolor ]
+        ask nearest-extinguisher [ set fire-extinguisher 0
+          if curr-floor = 1 [set pcolor sky]
+          if curr-floor = 2 [set pcolor blue]
+          if curr-floor = 4 [set pcolor magenta]
+          if curr-floor = 5 [set pcolor pink]
+        ]
       ]
 
       ; extinguish fire
@@ -1056,28 +1068,28 @@ to find-nearest-exit
 end
 
 to-report front-is-wall-or-person?
-  report patch-ahead speed = nobody or
+  report patch-ahead speed != nobody or
   [pcolor] of patch-ahead speed = gray or
   [pcolor] of patch-ahead speed = black or
-  patch-ahead 1 = nobody or
+  patch-ahead 1 != nobody or
   [pcolor] of patch-ahead 1 = gray or
   [pcolor] of patch-ahead 1 = black
 end
 
 to-report left-is-wall-or-person?
-  report patch-left-and-ahead 45 speed = nobody or
+  report patch-left-and-ahead 45 speed != nobody or
   [pcolor] of patch-left-and-ahead 45 speed = gray or
   [pcolor] of patch-left-and-ahead 45 speed = black or
-  patch-left-and-ahead 45 1 = nobody or
+  patch-left-and-ahead 45 1 != nobody or
   [pcolor] of patch-left-and-ahead 45 1 = gray or
   [pcolor] of patch-left-and-ahead 45 1 = black
 end
 
 to-report right-is-wall-or-person?
-  report patch-right-and-ahead 45 speed = nobody or
+  report patch-right-and-ahead 45 speed != nobody or
   [pcolor] of patch-right-and-ahead 45 speed = gray or
   [pcolor] of patch-right-and-ahead 45 speed = black or
-  patch-right-and-ahead 45 1 = nobody or
+  patch-right-and-ahead 45 1 != nobody or
   [pcolor] of patch-right-and-ahead 45 1 = gray or
   [pcolor] of patch-right-and-ahead 45 1 = black
 end
@@ -1161,7 +1173,7 @@ second_floor
 second_floor
 0
 3010
-130.0
+124.0
 1
 1
 NIL
@@ -1221,7 +1233,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-100.0
+0.0
 1
 1
 NIL
@@ -1236,7 +1248,7 @@ percentage_listeners
 percentage_listeners
 0
 100 - percentage_prepared - percentage_fighters
-0.0
+100.0
 1
 1
 NIL
@@ -1266,7 +1278,7 @@ rate_of_fire_spread
 rate_of_fire_spread
 0
 100
-10.0
+1.0
 1
 1
 NIL
