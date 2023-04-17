@@ -4,16 +4,20 @@ breed [ helpers helper ]
 breed [ fighters fighter ]
 
 globals [
-  prepared-kills
-  listener-kills
-  helper-kills
-  fighter-kills
+  prepared-deaths
+  listener-deaths
+  helper-deaths
+  fighter-deaths
   prepared-evacuated
   listener-evacuated
   helper-evacuated
   fighter-evacuated
   ave-age-at-death
   ave-age-at-evac
+]
+
+patches-own [
+  fire-extinguisher
 ]
 
 turtles-own [
@@ -48,10 +52,10 @@ to setup
   setup-people
   setup-fire
 
-  set prepared-kills 0
-  set listener-kills 0
-  set helper-kills 0
-  set fighter-kills 0
+  set prepared-deaths 0
+  set listener-deaths 0
+  set helper-deaths 0
+  set fighter-deaths 0
   set prepared-evacuated 0
   set listener-evacuated 0
   set helper-evacuated 0
@@ -690,10 +694,46 @@ to setup-floors
       [ set pcolor black ]
   ]
 
-  show count patches with [pcolor = pink]
-  show count patches with [pcolor = magenta]
-  show count patches with [pcolor = blue]
-  show count patches with [pcolor = sky]
+  if number_of_extinguishers >= 1 [
+    let exits-x-left-5 [ 6 -6 6 -6 21 -21 21 -21 44 -44 44 -44 60 -60 60 -60 70 -70 70 -70 71 -71 71 -71 71 -71]
+    let exits-y-left-5 [ 62 62 -62 -62 62 62 -62 -62 62 62 -62 -62 53 53 -53 -53 37 37 -37 -37 15 15 -15 -15 1 1 ]
+    let exits-x-right-5 [ 9 -9 9 -9 24 -24 24 -24 46 -46 46 -46 62 -62 62 -62 70 -70 70 -70 71 -71 71 -71 71 -71 ]
+    let exits-y-right-5 [ 62 62 -62 -62 62 62 -62 -62 61 61 -61 -61 51 51 -51 -51 35 35 -35 -35 13 13 -13 -13 -1 -1 ]
+    let exits-x-left-4 [ 6 -6 6 -6 21 -21 21 -21 40 -40 40 -40 51 -51 51 -51 60 -60 60 -60 62 -62 62 -62 62 -62 ]
+    let exits-y-left-4 [ 54 54 -54 -54 54 54 -54 -54 52 52 -52 -52 43 43 -43 -43 33 33 -33 -33 15 15 -15 -15 1 1 ]
+    let exits-x-right-4 [ 9 -9 9 -9 24 -24 24 -24 42 -42 42 -42 53 -53 53 -53 61 -61 61 -61 62 -62 62 -62 62 -62 ]
+    let exits-y-right-4 [ 54 54 -54 -54 54 54 -54 -54 52 52 -52 -52 41 41 -41 -41 31 31 -31 -31 13 13 -13 -13 -1 -1 ]
+    let exits-x-left-2 [ 6 -6 6 -6 21 -21 21 -21 35 -35 35 -35 46 -46 46 -46 49 -49 49 -49 49 -49 ]
+    let exits-y-left-2 [ 40 40 -40 -40 40 40 -40 -40 39 39 -39 -39 29 29 -29 -29 14 14 -14 -14 1 1 ]
+    let exits-x-right-2 [ 9 -9 9 -9 24 -24 24 -24 38 -38 38 -38 48 -48 48 -48 49 -49 49 -49 49 -49 ]
+    let exits-y-right-2 [ 40 40 -40 -40 40 40 -40 -40 37 37 -37 -37 26 26 -26 -26 12 12 -12 -12 -1 -1 ]
+    let exits-x-left-1 [ -34 34 -34 34 ]
+    let exits-y-left-1 [ 20 20 -20 -20 ]
+    let exits-x-right-1 [ -36 36 -36 36 ]
+    let exits-y-right-1 [ 18 18 -18 -18 ]
+
+    let i 0
+
+    while [i < length exits-x-left-5] [
+      ask patch item i exits-x-left-5 item i exits-y-left-5 [ set pcolor red - 0.5 set fire-extinguisher 1 ]
+      if number_of_extinguishers = 2  [ ask patch item i exits-x-right-5 item i exits-y-right-5 [ set pcolor red - 0.5 set fire-extinguisher 1 ] ]
+
+      ask patch item i exits-x-left-4 item i exits-y-left-4 [ set pcolor red - 0.4 set fire-extinguisher 1 ]
+      if number_of_extinguishers = 2  [ ask patch item i exits-x-right-4 item i exits-y-right-4 [ set pcolor red - 0.4 set fire-extinguisher 1 ] ]
+
+      if i < 22 [
+        ask patch item i exits-x-left-2 item i exits-y-left-2 [ set pcolor red - 0.2 set fire-extinguisher 1 ]
+        if number_of_extinguishers = 2  [ ask patch item i exits-x-right-2 item i exits-y-right-2 [ set pcolor red - 0.2 set fire-extinguisher 1 ] ]
+      ]
+
+      if i < 4 [
+        ask patch item i exits-x-left-1 item i exits-y-left-1 [ set pcolor red - 0.1 set fire-extinguisher 1 ]
+        if number_of_extinguishers = 2  [ ask patch item i exits-x-right-1 item i exits-y-right-1 [ set pcolor red - 0.1 set fire-extinguisher 1 ] ]
+      ]
+
+      set i i + 1
+    ]
+  ]
 end
 
 to setup-people
@@ -728,20 +768,25 @@ to setup-people
     set breed prepareds
   ]
 
-  ask n-of ((fifth_floor + fourth_floor + second_floor + first_floor) / 100 * percentage_listeners) turtles [
+  ask n-of ((fifth_floor + fourth_floor + second_floor + first_floor) / 100 * percentage_listeners) turtles with [ breed != prepareds ][
     set color yellow
     set breed listeners
     set nearest-visible-exit nobody
     set is-alerted false
   ]
 
+  ask n-of ((fifth_floor + fourth_floor + second_floor + first_floor) / 100 * percentage_fighters) turtles with [ breed != prepareds and breed != listeners ][
+    set color violet
+    set breed fighters
+    set has-extinguisher false
+    set extinguisher-amount 50
+  ]
+
   create-helpers (25 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
     set floor-number 5
-    while [count helpers in-radius 2 >= (number_of_helpers + 1)] [
-      move-to one-of patches with [pcolor = green - 0.5]
-    ]
+    move-to one-of patches with [pcolor = green - 0.5 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
@@ -749,9 +794,7 @@ to setup-people
     set color brown
     set speed 0.5 + random-float 1
     set floor-number 4
-    while [count helpers in-radius 2 >= (number_of_helpers + 1)] [
-      move-to one-of patches with [pcolor = green - 0.4]
-    ]
+    move-to one-of patches with [pcolor = green - 0.4 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
@@ -759,9 +802,7 @@ to setup-people
     set color brown
     set speed 0.5 + random-float 1
     set floor-number 2
-    while [count helpers in-radius 2 >= (number_of_helpers + 1)] [
-      move-to one-of patches with [pcolor = green - 0.2]
-    ]
+    move-to one-of patches with [pcolor = green - 0.2 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
@@ -769,9 +810,7 @@ to setup-people
     set color brown
     set speed 0.5 + random-float 1
     set floor-number 1
-    while [count helpers in-radius 2 >= (number_of_helpers + 1)] [
-      move-to one-of patches with [pcolor = green - 0.1]
-    ]
+    move-to one-of patches with [pcolor = green - 0.1 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 end
@@ -797,9 +836,9 @@ end
 
 to move-prepared
   ask prepareds [
-    if [ pcolor ] of patch-here = orange [ set prepared-kills prepared-kills + 1 set ave-age-at-death ave-age-at-death + age die ]
+    if [ pcolor ] of patch-here = orange [ set prepared-deaths prepared-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
-    find-nearest-exit
+    if count patches with [ pcolor = orange ] > 0 [ find-nearest-exit ]
     face nearest-exit
     ifelse distance nearest-exit < speed
       [
@@ -814,7 +853,7 @@ end
 
 to move-listeners
   ask listeners [
-    if [ pcolor ] of patch-here = orange [ set listener-kills listener-kills + 1 set ave-age-at-death ave-age-at-death + age die ]
+    if [ pcolor ] of patch-here = orange [ set listener-deaths listener-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
     if floor-number = 5 [ set nearest-visible-exit min-one-of patches with [ pcolor = green - 0.5 ] [ distance myself ] ]
     if floor-number = 4 [ set nearest-visible-exit min-one-of patches with [ pcolor = green - 0.4 ] [ distance myself ] ]
@@ -824,7 +863,7 @@ to move-listeners
     let nearest-helper min-one-of helpers [ distance myself ]
     let nearest-person min-one-of turtles [ distance myself ]
 
-    ifelse nearest-fire != nobody and distance nearest-fire <=  [ face nearest-fire right 180 ][
+    ifelse nearest-fire != nobody and distance nearest-fire <= 5 [ face nearest-fire right 180 ][
       ifelse nearest-visible-exit != nobody and distance nearest-visible-exit <= 5 [ face nearest-visible-exit ][
         ifelse is-alerted [ face nearest-helper ][
           ifelse nearest-person != nobody and distance nearest-person <= 5 [ face nearest-person ][ face nearest-fire right 180 ]]]]
@@ -844,7 +883,7 @@ end
 
 to move-helpers
   ask helpers [
-    if [ pcolor ] of patch-here = orange [ set helper-kills helper-kills + 1 set ave-age-at-death ave-age-at-death + age die ]
+    if [ pcolor ] of patch-here = orange [ set helper-deaths helper-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
     let floor-num 5
     if floor-number = 4 [ set floor-num 4 ]
@@ -873,6 +912,57 @@ to move-helpers
 end
 
 to move-fighters
+  ask fighters [
+    if [ pcolor ] of patch-here = orange [ set fighter-deaths fighter-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
+
+
+
+
+    let nearest-extinguisher patch 0 0
+    if floor-number = 5 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.5 and fire-extinguisher = 1 ] [ distance myself ] ]
+    if floor-number = 4 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.4 and fire-extinguisher = 1 ] [ distance myself ] ]
+    if floor-number = 2 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.2 and fire-extinguisher = 1 ] [ distance myself ] ]
+    if floor-number = 1 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.1 and fire-extinguisher = 1 ] [ distance myself ] ]
+    let nearest-fire min-one-of patches with [ pcolor = orange ] [ distance myself ]
+    if count patches with [ pcolor = orange ] > 0 [ find-nearest-exit ]
+
+    ; away from fire
+    ifelse nearest-fire != nobody and distance nearest-fire < 1 [ face nearest-fire right 180 ] [
+      ; get fire extinguisher if available and has none
+      ifelse has-extinguisher = false and nearest-extinguisher != nobody [ face nearest-extinguisher ][
+        ; evacuate if no more fire extiguishers
+        ifelse has-extinguisher = false and nearest-extinguisher = nobody [ face nearest-exit ][
+          ; put out fires if possible, otherwise evacuate
+          ifelse extinguisher-amount > 0 and count patches with [ pcolor = orange ] < 200 and count patches with [ pcolor = orange ] != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]
+
+    ; get fire extinguisher
+    if nearest-extinguisher != nobody and distance nearest-extinguisher < 2 [
+      set has-extinguisher true
+      ask nearest-extinguisher [ set fire-extinguisher 0 ]
+    ]
+
+    ; extinguish fire
+    if has-extinguisher = true and extinguisher-amount > 0 and front-is-fire? or left-is-fire? or right-is-fire? [
+      ask patch-ahead 2 [ if pcolor = orange [set pcolor black + 0.1] ]
+      ask patch-ahead 1 [ if pcolor = orange [set pcolor black + 0.1] ]
+      ask patch-left-and-ahead 45 2 [ if pcolor = orange [set pcolor black + 0.1] ]
+      ask patch-left-and-ahead 45 1 [ if pcolor = orange [set pcolor black + 0.1] ]
+      ask patch-right-and-ahead 45 2 [ if pcolor = orange [set pcolor black + 0.1] ]
+      ask patch-right-and-ahead 45 1 [ if pcolor = orange [set pcolor black + 0.1] ]
+      set extinguisher-amount extinguisher-amount - 1
+      if count patches with [ pcolor = orange ] = 0 [ stop ]
+    ]
+
+    ; move
+    ifelse distance nearest-exit < speed
+      [
+        move-to nearest-exit
+        set fighter-evacuated fighter-evacuated + 1
+        set ave-age-at-evac ave-age-at-evac + age
+        die
+      ]
+      [ move-forward ]
+  ]
 end
 
 to find-nearest-exit
@@ -955,19 +1045,30 @@ to-report right-is-wall-or-person?
   [pcolor] of patch-right-and-ahead 45 1 = black
 end
 
+to-report front-is-fire?
+  report [pcolor] of patch-ahead 2 = orange or [pcolor] of patch-ahead 1 = orange
+end
+
+to-report left-is-fire?
+  report [pcolor] of patch-left-and-ahead 45 2 = orange or [pcolor] of patch-left-and-ahead 45 1 = orange
+end
+
+to-report right-is-fire?
+  report [pcolor] of patch-left-and-ahead 45 2 = orange or [pcolor] of patch-left-and-ahead 45 1 = orange
+end
+
 to-report coin-flip?
   report random 2 = 0
 end
 
 to go
-  if count turtles = 0 [ stop ]
-
   move-helpers
   move-fighters
   move-prepared
   move-listeners
   spread-fire
 
+  if count turtles = 0 or count patches with [ pcolor = orange ] = 0 [ stop ]
   ask turtles [ set age age + 1 ]
   tick
 end
@@ -1007,7 +1108,7 @@ SLIDER
 first_floor
 first_floor
 0
-3550
+3549
 500.0
 1
 1
@@ -1022,7 +1123,7 @@ SLIDER
 second_floor
 second_floor
 0
-3012
+3010
 500.0
 1
 1
@@ -1037,7 +1138,7 @@ SLIDER
 fourth_floor
 fourth_floor
 0
-3474
+3472
 500.0
 1
 1
@@ -1052,7 +1153,7 @@ SLIDER
 fifth_floor
 fifth_floor
 0
-3124
+3122
 500.0
 1
 1
@@ -1068,7 +1169,7 @@ percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-0.0
+60.0
 1
 1
 NIL
@@ -1083,7 +1184,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-0.0
+10.0
 1
 1
 NIL
@@ -1098,17 +1199,17 @@ percentage_listeners
 percentage_listeners
 0
 100 - percentage_prepared - percentage_fighters
-100.0
+30.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-124
-428
-297
-461
+34
+425
+207
+458
 number_of_helpers
 number_of_helpers
 0
@@ -1128,17 +1229,17 @@ rate_of_fire_spread
 rate_of_fire_spread
 0
 100
-30.0
+10.0
 1
 1
 NIL
 HORIZONTAL
 
 BUTTON
-60
-44
-154
-90
+66
+53
+160
+99
 setup
 setup
 NIL
@@ -1152,10 +1253,10 @@ NIL
 1
 
 BUTTON
-257
-44
-351
-90
+263
+53
+357
+99
 NIL
 go
 T
@@ -1209,10 +1310,10 @@ These sliders control the number of people per floor of the arena.
 1
 
 BUTTON
-160
-43
-253
-89
+166
+52
+259
+98
 NIL
 go
 NIL
@@ -1236,11 +1337,11 @@ These sliders control the percentages of people with Prepared, Listener, and Fig
 1
 
 TEXTBOX
-98
-408
-328
-427
-This slider controls the number of Helpers per exit.
+42
+405
+391
+424
+These sliders control the number of Helpers and fire extinguishers per exit.
 10
 0.0
 1
@@ -1256,43 +1357,43 @@ These sliders control the starting point and the spread rate of the fire.
 1
 
 MONITOR
-1234
-46
-1321
-92
+1209
+31
+1315
+76
 NIL
-prepared-kills
+prepared-deaths
 17
 1
 11
 
 MONITOR
-1234
-96
-1321
-142
+1209
+81
+1315
+126
 NIL
-listener-kills
+listener-deaths
 17
 1
 11
 
 MONITOR
-1234
-146
-1321
-192
+1209
+131
+1316
+176
 NIL
-helper-kills
+helper-deaths
 17
 1
 11
 
 MONITOR
-1323
-46
-1442
-92
+1319
+31
+1438
+76
 NIL
 prepared-evacuated
 17
@@ -1300,10 +1401,10 @@ prepared-evacuated
 11
 
 MONITOR
-1324
-96
-1441
-142
+1320
+81
+1437
+126
 NIL
 listener-evacuated
 17
@@ -1311,10 +1412,10 @@ listener-evacuated
 11
 
 MONITOR
-1324
-147
-1440
-193
+1320
+132
+1436
+177
 NIL
 helper-evacuated
 17
@@ -1322,26 +1423,107 @@ helper-evacuated
 11
 
 MONITOR
-1235
-234
-1439
-280
-Average Ticks before Fire Death
-ave-age-at-death / (prepared-kills + listener-kills + helper-kills + fighter-kills)
+1211
+249
+1437
+294
+Average Ticks before Death
+ave-age-at-death / (prepared-deaths + listener-deaths + helper-deaths + fighter-deaths)
 17
 1
 11
 
 MONITOR
-1235
-284
-1439
-330
+1211
+299
+1437
+344
 Average Ticks before Evacuation
 ave-age-at-evac / (prepared-evacuated + listener-evacuated + helper-evacuated + fighter-evacuated)
 17
 1
 11
+
+MONITOR
+1210
+181
+1316
+226
+NIL
+fighter-deaths
+17
+1
+11
+
+MONITOR
+1320
+181
+1438
+226
+NIL
+fighter-evacuated
+17
+1
+11
+
+PLOT
+1211
+360
+1438
+510
+Deaths per Tick
+Tick
+Deaths
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"prepared" 1.0 0 -2674135 true "" "plot prepared-deaths"
+"listener" 1.0 0 -1184463 true "" "plot listener-deaths"
+"helper" 1.0 0 -6459832 true "" "plot helper-deaths"
+"fighter" 1.0 0 -8630108 true "" "plot fighter-deaths"
+"fire" 1.0 0 -955883 true "" "plot count patches with [pcolor = orange]"
+
+PLOT
+1211
+515
+1438
+665
+Evacuations per Tick
+Tick
+Deaths
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"prepared" 1.0 0 -2674135 true "" "plot prepared-evacuated"
+"listener" 1.0 0 -1184463 true "" "plot listener-evacuated"
+"helper" 1.0 0 -6459832 true "" "plot helper-evacuated"
+"fighter" 1.0 0 -8630108 true "" "plot fighter-evacuated"
+"fire" 1.0 0 -955883 true "" "plot count patches with [pcolor = orange]"
+
+SLIDER
+212
+425
+394
+459
+number_of_extinguishers
+number_of_extinguishers
+0
+2
+2.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
