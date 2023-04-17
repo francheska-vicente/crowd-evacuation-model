@@ -23,6 +23,7 @@ patches-own [
 ]
 
 turtles-own [
+  delay
   floor-number-turtle
   speed
   age
@@ -827,7 +828,22 @@ to setup-people
 end
 
 to setup-fire
-  ask patch fire_x fire_y [ set pcolor orange ]
+  let curr-floor 0
+  ask patch fire_x fire_y [ set pcolor orange set curr-floor floor-number-patch ]
+  if curr-floor = 0 [ ask min-one-of patches with [ floor-number-patch != 0 ] [ distance myself ] [ set curr-floor floor-number-patch ] ]
+
+  if curr-floor = 1 or curr-floor = 2 [
+    ask turtles with [floor-number-patch = 1] [ set delay 5 ]
+    ask turtles with [floor-number-patch = 2] [ set delay 5 ]
+    ask turtles with [floor-number-patch = 4] [ set delay 10 ]
+    ask turtles with [floor-number-patch = 5] [ set delay 10 ]
+  ]
+  if curr-floor = 4 or curr-floor = 5 [
+    ask turtles with [floor-number-patch = 1] [ set delay 10 ]
+    ask turtles with [floor-number-patch = 2] [ set delay 10 ]
+    ask turtles with [floor-number-patch = 4] [ set delay 5 ]
+    ask turtles with [floor-number-patch = 5] [ set delay 5 ]
+  ]
 end
 
 to spread-fire
@@ -849,29 +865,32 @@ end
 
 to move-prepared
   ask prepareds [
-    if [ pcolor ] of patch-here = orange [ set prepared-deaths prepared-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
+    if delay < ticks or distance min-one-of patches with [ pcolor = orange ] [ distance myself ] < 2 [
+      if [ pcolor ] of patch-here = orange [ set prepared-deaths prepared-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
-    let curr-floor floor-number-turtle
-    if fire-count > 0 [ find-nearest-exit ]
-    let empty-patch one-of patches in-radius speed with [ count turtles-here = 0 and floor-number-patch = curr-floor ]
+      let curr-floor floor-number-turtle
+      if fire-count > 0 [ find-nearest-exit ]
+      let empty-patch one-of patches in-radius speed with [ count turtles-here = 0 and floor-number-patch = curr-floor ]
 
-    ifelse front-is-wall-or-person? [
-      ifelse left-is-wall-or-person? [ right 45 + random 135 ][
-        ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][ face nearest-exit ]
+      ifelse front-is-wall-or-person? [
+        ifelse left-is-wall-or-person? [ right 45 + random 135 ][
+          ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][ face nearest-exit ]
 
-    forward speed
+      forward speed
 
-    if distance nearest-exit < speed [
+      if distance nearest-exit < speed [
         move-to nearest-exit
         set prepared-evacuated prepared-evacuated + 1
         set ave-age-at-evac ave-age-at-evac + age
         die
+      ]
     ]
   ]
 end
 
 to move-listeners
   ask listeners [
+    if delay < ticks or distance min-one-of patches with [ pcolor = orange ] [ distance myself ] < 2 [
     if [ pcolor ] of patch-here = orange [ set listener-deaths listener-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
     let curr-floor floor-number-turtle
@@ -900,12 +919,13 @@ to move-listeners
         die
       ]
 
+    ]
   ]
-
 end
 
 to move-helpers
   ask helpers [
+    if delay < ticks or distance min-one-of patches with [ pcolor = orange ] [ distance myself ] < 2 [
     if [ pcolor ] of patch-here = orange [ set helper-deaths helper-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
     let curr-floor floor-number-turtle
@@ -915,12 +935,10 @@ to move-helpers
     let nearest-alert-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = true ] [ distance myself ]
     let nearest-lost-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [ distance myself ]
 
-    show nearest-alert-listener
-
     ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face assigned-exit][
-      ifelse exit-distance > 30 [face assigned-exit show 2][
-        ifelse nearest-alert-listener != nobody [ face assigned-exit show 3][
-          ifelse nearest-lost-listener != nobody [ show 4 face nearest-lost-listener if distance nearest-lost-listener <= 10 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit show 5]]]]
+      ifelse exit-distance > 30 [face assigned-exit][
+        ifelse nearest-alert-listener != nobody [ face assigned-exit ][
+          ifelse nearest-lost-listener != nobody [ face nearest-lost-listener if distance nearest-lost-listener <= 10 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit ]]]]
 
     forward speed
 
@@ -932,6 +950,7 @@ to move-helpers
         die
       ]
   ]
+
 end
 
 to move-fighters
@@ -1121,7 +1140,7 @@ first_floor
 first_floor
 0
 3549
-60.0
+154.0
 1
 1
 NIL
@@ -1136,7 +1155,7 @@ second_floor
 second_floor
 0
 3010
-0.0
+130.0
 1
 1
 NIL
@@ -1151,7 +1170,7 @@ fourth_floor
 fourth_floor
 0
 3472
-0.0
+199.0
 1
 1
 NIL
@@ -1166,7 +1185,7 @@ fifth_floor
 fifth_floor
 0
 3122
-0.0
+105.0
 1
 1
 NIL
@@ -1181,7 +1200,7 @@ percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-0.0
+100.0
 1
 1
 NIL
@@ -1196,7 +1215,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-100.0
+0.0
 1
 1
 NIL
