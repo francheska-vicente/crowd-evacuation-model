@@ -14,14 +14,16 @@ globals [
   fighter-evacuated
   ave-age-at-death
   ave-age-at-evac
+  fire-count
 ]
 
 patches-own [
+  floor-number-patch
   fire-extinguisher
 ]
 
 turtles-own [
-  floor-number
+  floor-number-turtle
   speed
   age
 ]
@@ -64,11 +66,14 @@ to setup
   set ave-age-at-death 0
   set ave-age-at-evac 0
 
+  set fire-count 1
+
   reset-ticks
 end
 
 to setup-floors
   ask patches [
+    set floor-number-patch 0
     ; VIP
     if pxcor <= 28 and pxcor >= -28 and pycor >= -22 and pycor <= 22
       [ set pcolor sky ]
@@ -396,293 +401,298 @@ to setup-floors
 
     ; paths (5th)
     if abs pxcor = 7 or abs pxcor = 8 or abs pxcor = 22 or abs pxcor = 23 and abs pycor >= 57 and abs pycor <= 61
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if pxcor >= -31 and pxcor <= 31 and abs pycor = 56
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 31 and abs pxcor <= 38 and abs pycor = 55
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 38 and abs pxcor <= 44 and abs pycor = 54
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor >= 44 and abs pxcor <= 45 and abs pycor = 53
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 45 and abs pxcor <= 46 and abs pycor = 52
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 46 and abs pxcor <= 47 and abs pycor = 51
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 47 and abs pxcor <= 48 and abs pycor = 50
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 48 and abs pxcor <= 49 and abs pycor = 49
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 49 and abs pxcor <= 50 and abs pycor = 48
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 50 and abs pxcor <= 51 and abs pycor = 47
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 51 and abs pxcor <= 52 and abs pycor = 46
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 52 and abs pxcor <= 53 and abs pycor = 45
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 53 and abs pxcor <= 54 and abs pycor = 44
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 54 and abs pxcor <= 55 and abs pycor = 43
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 55 and abs pxcor <= 56 and abs pycor = 42
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 56 and abs pxcor <= 57 and abs pycor = 41
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 57 and abs pxcor <= 58 and abs pycor = 40
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 58 and abs pxcor <= 59 and abs pycor = 39
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 59 and abs pxcor <= 60 and abs pycor = 38
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 60 and abs pxcor <= 61 and abs pycor = 37
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 61 and abs pxcor <= 62 and abs pycor = 36
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor = 62 and abs pycor >= 33 and abs pycor <= 35
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor = 63 and abs pycor >= 24 and abs pycor <= 33
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor = 64 and pycor >= -24 and pycor <= 24
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor = 42 and abs pycor >= 55 and abs pycor <= 56
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor = 43 and abs pycor >= 56 and abs pycor <= 59
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor = 44 and abs pycor >= 59 and abs pycor <= 61
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor = 45 and abs pycor >= 61 and abs pycor <= 62
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor >= 54 and abs pxcor <= 55 and abs pycor = 45
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 55 and abs pxcor <= 56 and abs pycor = 46
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 56 and abs pxcor <= 57 and abs pycor = 47
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 57 and abs pxcor <= 58 and abs pycor = 48
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 58 and abs pxcor <= 59 and abs pycor = 49
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 59 and abs pxcor <= 60 and abs pycor = 50
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 60 and abs pxcor <= 61 and abs pycor = 51
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 61 and abs pxcor <= 62 and abs pycor = 52
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor >= 64 and abs pxcor <= 65 and abs pycor = 33
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 65 and abs pxcor <= 67 and abs pycor = 34
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 67 and abs pxcor <= 69 and abs pycor = 35
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
     if abs pxcor >= 69 and abs pxcor <= 70 and abs pycor = 36
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor >= 65 and abs pxcor <= 71 and abs pycor = 14
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
     if abs pxcor >= 65 and abs pxcor <= 71 and pycor = 0
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 5 ]
 
 
     ; paths (4th)
     if abs pxcor = 7 or abs pxcor = 8 or abs pxcor = 22 or abs pxcor = 23 and abs pycor >= 44 and abs pycor <= 54
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if pxcor >= -32 and pxcor <= 32 and abs pycor = 43
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 32 and abs pxcor <= 38 and abs pycor = 42
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
 
     if abs pxcor >= 38 and abs pxcor <= 39 and abs pycor = 41
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 39 and abs pxcor <= 40 and abs pycor = 40
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 40 and abs pxcor <= 41 and abs pycor = 39
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 41 and abs pxcor <= 42 and abs pycor = 38
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 42 and abs pxcor <= 43 and abs pycor = 37
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 43 and abs pxcor <= 44 and abs pycor = 36
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 44 and abs pxcor <= 45 and abs pycor = 35
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 45 and abs pxcor <= 46 and abs pycor = 34
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 46 and abs pxcor <= 47 and abs pycor = 33
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 47 and abs pxcor <= 48 and abs pycor = 32
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 48 and abs pxcor <= 49 and abs pycor = 31
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 49 and abs pxcor <= 50 and abs pycor = 30
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 50 and abs pxcor <= 51 and abs pycor = 29
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor = 51 and abs pycor >= 25 and abs pycor <= 29
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor = 52 and pycor >= -25 and pycor <= 25
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor = 37 and abs pycor >= 42 and abs pycor <= 44
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor = 38 and abs pycor >= 44 and abs pycor <= 46
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor = 39 and abs pycor >= 46 and abs pycor <= 48
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor = 40 and abs pycor >= 48 and abs pycor <= 50
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor = 41 and abs pycor >= 50 and abs pycor <= 52
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor >= 45 and abs pxcor <= 46 and abs pycor = 36
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 46 and abs pxcor <= 47 and abs pycor = 37
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 47 and abs pxcor <= 48 and abs pycor = 38
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 48 and abs pxcor <= 49 and abs pycor = 39
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 49 and abs pxcor <= 50 and abs pycor = 40
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 50 and abs pxcor <= 51 and abs pycor = 41
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 51 and abs pxcor <= 52 and abs pycor = 42
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor >= 52 and abs pxcor <= 53 and abs pycor = 28
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 53 and abs pxcor <= 55 and abs pycor = 29
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 55 and abs pxcor <= 57 and abs pycor = 30
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 57 and abs pxcor <= 59 and abs pycor = 31
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
     if abs pxcor >= 59 and abs pxcor <= 60 and abs pycor = 32
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor >= 53 and abs pxcor <= 62 and abs pycor = 14
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     if abs pxcor >= 53 and abs pxcor <= 62 and pycor = 0
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 4 ]
 
     ; paths (2nd)
     if abs pxcor = 7 or abs pxcor = 8 or abs pxcor = 22 or abs pxcor = 23 and abs pycor >= 24 and abs pycor <= 40
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
 
     if pxcor >= -30 and pxcor <= 30 and abs pycor = 24
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor >= 30 and abs pxcor <= 32 and abs pycor = 23
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor >= 32 and abs pxcor <= 35 and abs pycor = 22
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 35 and abs pxcor <= 38 and abs pycor = 23
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 38 and abs pycor <= 23 and abs pycor >= 19
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 38 and abs pxcor <= 40 and abs pycor = 19
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 40 and abs pxcor <= 42 and abs pycor = 18
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 42 and abs pxcor <= 43 and abs pycor = 17
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor = 43 and pycor >= -16 and pycor <= 16
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor = 29 and abs pycor = 25
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 30 and abs pycor >= 25 and abs pycor <= 27
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 31 and abs pycor >= 27 and abs pycor <= 29
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 32 and abs pycor >= 29 and abs pycor <= 31
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 33 and abs pycor >= 31 and abs pycor <= 33
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 34 and abs pycor >= 33 and abs pycor <= 35
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 35 and abs pycor >= 35 and abs pycor <= 37
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor = 36 and abs pycor >= 37 and abs pycor <= 38
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor >= 39 and abs pxcor <= 40 and abs pycor = 23
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 40 and abs pxcor <= 42 and abs pycor = 24
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 42 and abs pxcor <= 44 and abs pycor = 25
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 44 and abs pxcor <= 46 and abs pycor = 26
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
     if abs pxcor >= 46 and abs pxcor <= 47 and abs pycor = 27
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor >= 44 and abs pxcor <= 49 and abs pycor = 13
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     if abs pxcor >= 44 and abs pxcor <= 49 and pycor = 0
-      [ set pcolor white ]
+      [ set pcolor white set floor-number-patch 2 ]
 
     ; exits (5th)
     if (abs pxcor = 7 or abs pxcor = 8 or abs pxcor = 22 or abs pxcor = 23) and abs pycor = 62
-      [ set pcolor green - 0.5]
+      [ set pcolor green set floor-number-patch 5 ]
     if abs pxcor = 45 and abs pycor >= 61 and abs pycor <= 62
-      [ set pcolor green - 0.5]
+      [ set pcolor green set floor-number-patch 5 ]
     if abs pxcor >= 61 and abs pxcor <= 62 and abs pycor = 52
-      [ set pcolor green - 0.5]
+      [ set pcolor green set floor-number-patch 5 ]
     if abs pxcor >= 69 and abs pxcor <= 70 and abs pycor = 36
-      [ set pcolor green - 0.5]
+      [ set pcolor green set floor-number-patch 5 ]
     if abs pxcor >= 70 and abs pxcor <= 71 and abs pycor = 14
-      [ set pcolor green - 0.5]
+      [ set pcolor green set floor-number-patch 5 ]
     if abs pxcor >= 70 and abs pxcor <= 71 and pycor = 0
-      [ set pcolor green - 0.5]
+      [ set pcolor green set floor-number-patch 5 ]
 
     ; exits (4th)
     if (abs pxcor = 7 or abs pxcor = 8 or abs pxcor = 22 or abs pxcor = 23) and abs pycor = 54
-      [ set pcolor green - 0.4]
+      [ set pcolor green set floor-number-patch 4 ]
     if abs pxcor = 41 and abs pycor >= 51 and abs pycor <= 52
-      [ set pcolor green - 0.4]
+      [ set pcolor green set floor-number-patch 4 ]
     if abs pxcor >= 51 and abs pxcor <= 52 and abs pycor = 42
-      [ set pcolor green - 0.4]
+      [ set pcolor green set floor-number-patch 4 ]
     if abs pxcor >= 59 and abs pxcor <= 60 and abs pycor = 32
-      [ set pcolor green - 0.4]
+      [ set pcolor green set floor-number-patch 4 ]
     if abs pxcor >= 61 and abs pxcor <= 62 and abs pycor = 14
-      [ set pcolor green - 0.4]
+      [ set pcolor green set floor-number-patch 4 ]
     if abs pxcor >= 61 and abs pxcor <= 62 and pycor = 0
-      [ set pcolor green - 0.4]
+      [ set pcolor green set floor-number-patch 4 ]
 
     ; exits (2nd)
     if (abs pxcor = 7 or abs pxcor = 8 or abs pxcor = 22 or abs pxcor = 23) and abs pycor = 40
-      [ set pcolor green - 0.2]
+      [ set pcolor green set floor-number-patch 2 ]
     if abs pxcor = 36 and abs pycor >= 37 and abs pycor <= 38
-      [ set pcolor green - 0.2]
+      [ set pcolor green set floor-number-patch 2 ]
     if abs pxcor >= 46 and abs pxcor <= 47 and abs pycor = 27
-      [ set pcolor green - 0.2]
+      [ set pcolor green set floor-number-patch 2 ]
     if abs pxcor >= 48 and abs pxcor <= 49 and abs pycor = 13
-      [ set pcolor green - 0.2]
+      [ set pcolor green set floor-number-patch 2 ]
     if abs pxcor >= 48 and abs pxcor <= 49 and pycor = 0
-      [ set pcolor green - 0.2]
+      [ set pcolor green set floor-number-patch 2 ]
 
     ; exits (1st)
     if (abs pxcor = 36 and abs pycor = 20) or (abs pxcor = 35 and abs pycor = 20) or (abs pxcor = 36 and abs pycor = 19)
-      [ set pcolor green - 0.1]
+      [ set pcolor green set floor-number-patch 1 ]
 
   ]
+
+  ask patches with [ pcolor = sky ] [ set floor-number-patch 1 ]
+  ask patches with [ pcolor = blue ] [ set floor-number-patch 2 ]
+  ask patches with [ pcolor = magenta ] [ set floor-number-patch 4 ]
+  ask patches with [ pcolor = pink ] [ set floor-number-patch 5 ]
 
   ask patches with [ pcolor = black ] [
     if pxcor <= 66 and pxcor >= -66 and pycor <= 55 and pycor >= -55
@@ -716,19 +726,19 @@ to setup-floors
 
     while [i < length exits-x-left-5] [
       ask patch item i exits-x-left-5 item i exits-y-left-5 [ set pcolor red - 0.5 set fire-extinguisher 1 ]
-      if number_of_extinguishers = 2  [ ask patch item i exits-x-right-5 item i exits-y-right-5 [ set pcolor red - 0.5 set fire-extinguisher 1 ] ]
+      if number_of_extinguishers = 2  [ ask patch item i exits-x-right-5 item i exits-y-right-5 [ set pcolor red set fire-extinguisher 1 set floor-number-patch 5] ]
 
       ask patch item i exits-x-left-4 item i exits-y-left-4 [ set pcolor red - 0.4 set fire-extinguisher 1 ]
-      if number_of_extinguishers = 2  [ ask patch item i exits-x-right-4 item i exits-y-right-4 [ set pcolor red - 0.4 set fire-extinguisher 1 ] ]
+      if number_of_extinguishers = 2  [ ask patch item i exits-x-right-4 item i exits-y-right-4 [ set pcolor red set fire-extinguisher 1 set floor-number-patch 4 ] ]
 
       if i < 22 [
         ask patch item i exits-x-left-2 item i exits-y-left-2 [ set pcolor red - 0.2 set fire-extinguisher 1 ]
-        if number_of_extinguishers = 2  [ ask patch item i exits-x-right-2 item i exits-y-right-2 [ set pcolor red - 0.2 set fire-extinguisher 1 ] ]
+        if number_of_extinguishers = 2  [ ask patch item i exits-x-right-2 item i exits-y-right-2 [ set pcolor red set fire-extinguisher 1 set floor-number-patch 2 ] ]
       ]
 
       if i < 4 [
         ask patch item i exits-x-left-1 item i exits-y-left-1 [ set pcolor red - 0.1 set fire-extinguisher 1 ]
-        if number_of_extinguishers = 2  [ ask patch item i exits-x-right-1 item i exits-y-right-1 [ set pcolor red - 0.1 set fire-extinguisher 1 ] ]
+        if number_of_extinguishers = 2  [ ask patch item i exits-x-right-1 item i exits-y-right-1 [ set pcolor red set fire-extinguisher 1 set floor-number-patch 1 ] ]
       ]
 
       set i i + 1
@@ -738,23 +748,23 @@ end
 
 to setup-people
   create-turtles fifth_floor [
-    set floor-number 5
-    move-to one-of patches with [pcolor = pink and not any? turtles-here]
+    set floor-number-turtle 5
+    move-to one-of patches with [floor-number-patch = 5 and not any? turtles-here]
   ]
 
   create-turtles fourth_floor [
-    set floor-number 4
-    move-to one-of patches with [pcolor = magenta and not any? turtles-here]
+    set floor-number-turtle 4
+    move-to one-of patches with [floor-number-patch = 4 and not any? turtles-here]
   ]
 
   create-turtles second_floor [
-    set floor-number 2
-    move-to one-of patches with [pcolor = blue and not any? turtles-here]
+    set floor-number-turtle 2
+    move-to one-of patches with [floor-number-patch = 2 and not any? turtles-here]
   ]
 
   create-turtles first_floor [
-    set floor-number 1
-    move-to one-of patches with [pcolor = sky and not any? turtles-here]
+    set floor-number-turtle 1
+    move-to one-of patches with [floor-number-patch = 1 and not any? turtles-here]
 
   ]
 
@@ -771,7 +781,8 @@ to setup-people
   ask n-of ((fifth_floor + fourth_floor + second_floor + first_floor) / 100 * percentage_listeners) turtles with [ breed != prepareds ][
     set color yellow
     set breed listeners
-    set nearest-visible-exit nobody
+    let curr-floor floor-number-turtle
+    set nearest-visible-exit patches in-radius 10 with [ pcolor = green and floor-number-patch = curr-floor ]
     set is-alerted false
   ]
 
@@ -785,32 +796,32 @@ to setup-people
   create-helpers (25 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
-    set floor-number 5
-    move-to one-of patches with [pcolor = green - 0.5 and (count helpers in-radius 2 < number_of_helpers)]
+    set floor-number-turtle 5
+    move-to one-of patches with [pcolor = green and floor-number-patch = 5 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
   create-helpers (25 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
-    set floor-number 4
-    move-to one-of patches with [pcolor = green - 0.4 and (count helpers in-radius 2 < number_of_helpers)]
+    set floor-number-turtle 4
+    move-to one-of patches with [pcolor = green and floor-number-patch = 4 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
   create-helpers (22 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
-    set floor-number 2
-    move-to one-of patches with [pcolor = green - 0.2 and (count helpers in-radius 2 < number_of_helpers)]
+    set floor-number-turtle 2
+    move-to one-of patches with [pcolor = green and floor-number-patch = 2 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
   create-helpers (4 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
-    set floor-number 1
-    move-to one-of patches with [pcolor = green - 0.1 and (count helpers in-radius 2 < number_of_helpers)]
+    set floor-number-turtle 1
+    move-to one-of patches with [pcolor = green and floor-number-patch = 1 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 end
@@ -832,22 +843,30 @@ to spread-fire
       ]
     ]
   ]
+
+  set fire-count count patches with [ pcolor = orange ]
 end
 
 to move-prepared
   ask prepareds [
     if [ pcolor ] of patch-here = orange [ set prepared-deaths prepared-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
-    if count patches with [ pcolor = orange ] > 0 [ find-nearest-exit ]
-    face nearest-exit
-    ifelse distance nearest-exit < speed
-      [
+    let curr-floor floor-number-turtle
+    if fire-count > 0 [ find-nearest-exit ]
+    let empty-patch one-of patches in-radius speed with [ count turtles-here = 0 and floor-number-patch = curr-floor ]
+
+    ifelse front-is-wall-or-person? [
+      ifelse left-is-wall-or-person? [ right 45 + random 135 ][
+        ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][ face nearest-exit ]
+
+    forward speed
+
+    if distance nearest-exit < speed [
         move-to nearest-exit
         set prepared-evacuated prepared-evacuated + 1
         set ave-age-at-evac ave-age-at-evac + age
         die
-      ]
-      [ move-forward ]
+    ]
   ]
 end
 
@@ -855,27 +874,31 @@ to move-listeners
   ask listeners [
     if [ pcolor ] of patch-here = orange [ set listener-deaths listener-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
-    if floor-number = 5 [ set nearest-visible-exit min-one-of patches with [ pcolor = green - 0.5 ] [ distance myself ] ]
-    if floor-number = 4 [ set nearest-visible-exit min-one-of patches with [ pcolor = green - 0.4 ] [ distance myself ] ]
-    if floor-number = 2 [ set nearest-visible-exit min-one-of patches with [ pcolor = green - 0.2 ] [ distance myself ] ]
-    if floor-number = 1 [ set nearest-visible-exit min-one-of patches with [ pcolor = green - 0.1 ] [ distance myself ] ]
+    let curr-floor floor-number-turtle
+    set nearest-visible-exit patches in-radius 10 with [ pcolor = green and floor-number-patch = curr-floor ]
     let nearest-fire min-one-of patches with [ pcolor = orange ] [ distance myself ]
-    let nearest-helper min-one-of helpers [ distance myself ]
-    let nearest-person min-one-of turtles [ distance myself ]
+    let nearest-helper min-one-of helpers with [ floor-number-turtle = curr-floor ] [ distance myself ]
+    let nearest-person min-one-of turtles with [ floor-number-turtle = curr-floor ] [ distance myself ]
+    let empty-patch one-of patches in-radius speed with [ count turtles-here = 0 and floor-number-patch = curr-floor ]
 
-    ifelse nearest-fire != nobody and distance nearest-fire <= 5 [ face nearest-fire right 180 ][
-      ifelse nearest-visible-exit != nobody and distance nearest-visible-exit <= 5 [ face nearest-visible-exit ][
-        ifelse is-alerted [ face nearest-helper ][
-          ifelse nearest-person != nobody and distance nearest-person <= 5 [ face nearest-person ][ face nearest-fire right 180 ]]]]
+    ifelse front-is-wall-or-person? [
+      ifelse left-is-wall-or-person? [ right 45 + random 135 ][
+        ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][
+      ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face nearest-fire right 180 ][
+        ifelse count nearest-visible-exit != 0 [ face min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself] ][
+          ifelse is-alerted = true [ face nearest-helper ][
+            ifelse nearest-person != nobody and distance nearest-person <= 5 [ face nearest-person ][ face nearest-fire right 180 ]]]]]
 
-    ifelse nearest-visible-exit != nobody and distance nearest-visible-exit < speed
+
+    if not front-is-wall-or-person? [forward speed]
+
+    if nearest-visible-exit != nobody and distance min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself] < speed
       [
-        move-to nearest-visible-exit
+        move-to min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself]
         set listener-evacuated listener-evacuated + 1
         set ave-age-at-evac ave-age-at-evac + age
         die
       ]
-      [ move-forward ]
 
   ]
 
@@ -885,29 +908,29 @@ to move-helpers
   ask helpers [
     if [ pcolor ] of patch-here = orange [ set helper-deaths helper-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
-    let floor-num 5
-    if floor-number = 4 [ set floor-num 4 ]
-    if floor-number = 2 [ set floor-num 2 ]
-    if floor-number = 1 [ set floor-num 1 ]
+    let curr-floor floor-number-turtle
 
     let exit-distance distance assigned-exit
     let nearest-fire min-one-of patches with [ pcolor = orange ] [ distance myself ]
-    let nearest-alert-listener min-one-of listeners with [ floor-number = floor-num and nearest-visible-exit = nobody and is-alerted = true ] [ distance myself ]
-    let nearest-lost-listener min-one-of listeners with [ floor-number = floor-num and nearest-visible-exit = nobody and is-alerted = false ] [ distance myself ]
+    let nearest-alert-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = true ] [ distance myself ]
+    let nearest-lost-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [ distance myself ]
 
-    ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face assigned-exit ][
-      ifelse exit-distance > 30 [face assigned-exit][
-        ifelse nearest-alert-listener != nobody [ face assigned-exit ][
-          ifelse nearest-lost-listener != nobody [ face nearest-lost-listener if distance nearest-lost-listener <= 20 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit ]]]]
+    show nearest-alert-listener
 
-    ifelse count listeners in-radius 50 with [floor-number = floor-num] = 0
+    ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face assigned-exit][
+      ifelse exit-distance > 30 [face assigned-exit show 2][
+        ifelse nearest-alert-listener != nobody [ face assigned-exit show 3][
+          ifelse nearest-lost-listener != nobody [ show 4 face nearest-lost-listener if distance nearest-lost-listener <= 10 [ ask nearest-lost-listener [ set is-alerted true ]]][ face assigned-exit show 5]]]]
+
+    forward speed
+
+    if count listeners in-radius 50 with [floor-number-turtle = curr-floor] = 0
       [
         move-to assigned-exit
         set helper-evacuated helper-evacuated + 1
         set ave-age-at-evac ave-age-at-evac + age
         die
       ]
-      [ move-forward ]
   ]
 end
 
@@ -915,16 +938,10 @@ to move-fighters
   ask fighters [
     if [ pcolor ] of patch-here = orange [ set fighter-deaths fighter-deaths + 1 set ave-age-at-death ave-age-at-death + age die ]
 
-
-
-
-    let nearest-extinguisher patch 0 0
-    if floor-number = 5 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.5 and fire-extinguisher = 1 ] [ distance myself ] ]
-    if floor-number = 4 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.4 and fire-extinguisher = 1 ] [ distance myself ] ]
-    if floor-number = 2 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.2 and fire-extinguisher = 1 ] [ distance myself ] ]
-    if floor-number = 1 [ set nearest-extinguisher min-one-of patches with [ pcolor = red - 0.1 and fire-extinguisher = 1 ] [ distance myself ] ]
-    let nearest-fire min-one-of patches with [ pcolor = orange ] [ distance myself ]
-    if count patches with [ pcolor = orange ] > 0 [ find-nearest-exit ]
+    let curr-floor floor-number-turtle
+    let nearest-extinguisher min-one-of patches with [ floor-number-patch = curr-floor and fire-extinguisher = 1 ] [ distance myself ]
+    let nearest-fire min-one-of patches with [ floor-number-patch = curr-floor and pcolor = orange ] [ distance myself ]
+    if fire-count > 0 [ find-nearest-exit ]
 
     ; away from fire
     ifelse nearest-fire != nobody and distance nearest-fire < 1 [ face nearest-fire right 180 ] [
@@ -933,7 +950,9 @@ to move-fighters
         ; evacuate if no more fire extiguishers
         ifelse has-extinguisher = false and nearest-extinguisher = nobody [ face nearest-exit ][
           ; put out fires if possible, otherwise evacuate
-          ifelse extinguisher-amount > 0 and count patches with [ pcolor = orange ] < 200 and count patches with [ pcolor = orange ] != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]
+          ifelse extinguisher-amount > 0 and fire-count < 200 and fire-count != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]
+
+    forward speed
 
     ; get fire extinguisher
     if nearest-extinguisher != nobody and distance nearest-extinguisher < 2 [
@@ -950,18 +969,18 @@ to move-fighters
       ask patch-right-and-ahead 45 2 [ if pcolor = orange [set pcolor black + 0.1] ]
       ask patch-right-and-ahead 45 1 [ if pcolor = orange [set pcolor black + 0.1] ]
       set extinguisher-amount extinguisher-amount - 1
-      if count patches with [ pcolor = orange ] = 0 [ stop ]
+      set fire-count count patches with [ pcolor = orange ]
+      if fire-count = 0 [ stop ]
     ]
 
     ; move
-    ifelse distance nearest-exit < speed
+    if distance nearest-exit < speed
       [
         move-to nearest-exit
         set fighter-evacuated fighter-evacuated + 1
         set ave-age-at-evac ave-age-at-evac + age
         die
       ]
-      [ move-forward ]
   ]
 end
 
@@ -969,22 +988,22 @@ to find-nearest-exit
   let exits-x []
   let exits-y []
 
-  if floor-number = 5 [
+  if floor-number-turtle = 5 [
     set exits-x [-23 -8 8 23 -23 -8 8 23 45 -45 45 -45 62 -62 62 -62 70 -70 70 -70 71 -71 71 -71 71 -71]
     set exits-y [62 62 62 62 -62 -62 -62 -62 62 62 -62 -62 52 52 -52 -52 36 36 -36 -36 14 14 -14 -14 0 0]
   ]
 
-  if floor-number = 4 [
+  if floor-number-turtle = 4 [
     set exits-x [-23 -8 8 23 -23 -8 8 23 41 -41 41 -41 52 -52 52 -52 60 -60 60 -60 62 -62 62 -62 62 -62]
     set exits-y [54 54 54 54 -54 -54 -54 -54 52 52 -52 -52 42 42 -42 -42 32 32 -32 -32 14 14 -14 -14 0 0]
   ]
 
-  if floor-number = 2 [
+  if floor-number-turtle = 2 [
     set exits-x [-23 -8 8 23 -23 -8 8 23 36 -36 36 -36 47 -47 47 -47 49 -49 49 -49 49 -49]
     set exits-y [40 40 40 40 -40 -40 -40 -40 38 38 -38 -38 27 27 -27 -27 13 13 -13 -13 0 0]
   ]
 
-  if floor-number = 1 [
+  if floor-number-turtle = 1 [
     set exits-x [35 -35 35 -35]
     set exits-y [20 20 -20 -20]
   ]
@@ -1009,13 +1028,6 @@ to find-nearest-exit
     ; increment counter
     set i i + 1
   ]
-end
-
-to move-forward
-  ifelse front-is-wall-or-person? [
-    ifelse left-is-wall-or-person? [ right 45 + random 135 ][
-      ifelse right-is-wall-or-person? [ left 45 + random 135 ][
-        ifelse coin-flip? [right 45 + random 135] [left 45 + random 135]]]][ forward speed ]
 end
 
 to-report front-is-wall-or-person?
@@ -1068,7 +1080,7 @@ to go
   move-listeners
   spread-fire
 
-  if count turtles = 0 or count patches with [ pcolor = orange ] = 0 [ stop ]
+  if count turtles = 0 or fire-count = 0 [ stop ]
   ask turtles [ set age age + 1 ]
   tick
 end
@@ -1109,7 +1121,7 @@ first_floor
 first_floor
 0
 3549
-500.0
+60.0
 1
 1
 NIL
@@ -1124,7 +1136,7 @@ second_floor
 second_floor
 0
 3010
-500.0
+0.0
 1
 1
 NIL
@@ -1139,7 +1151,7 @@ fourth_floor
 fourth_floor
 0
 3472
-500.0
+0.0
 1
 1
 NIL
@@ -1154,7 +1166,7 @@ fifth_floor
 fifth_floor
 0
 3122
-500.0
+0.0
 1
 1
 NIL
@@ -1169,7 +1181,7 @@ percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-60.0
+0.0
 1
 1
 NIL
@@ -1184,7 +1196,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-10.0
+100.0
 1
 1
 NIL
@@ -1199,7 +1211,7 @@ percentage_listeners
 percentage_listeners
 0
 100 - percentage_prepared - percentage_fighters
-30.0
+0.0
 1
 1
 NIL
@@ -1486,7 +1498,7 @@ PENS
 "listener" 1.0 0 -1184463 true "" "plot listener-deaths"
 "helper" 1.0 0 -6459832 true "" "plot helper-deaths"
 "fighter" 1.0 0 -8630108 true "" "plot fighter-deaths"
-"fire" 1.0 0 -955883 true "" "plot count patches with [pcolor = orange]"
+"fire" 1.0 0 -955883 true "" "plot fire-count"
 
 PLOT
 1211
@@ -1508,7 +1520,7 @@ PENS
 "listener" 1.0 0 -1184463 true "" "plot listener-evacuated"
 "helper" 1.0 0 -6459832 true "" "plot helper-evacuated"
 "fighter" 1.0 0 -8630108 true "" "plot fighter-evacuated"
-"fire" 1.0 0 -955883 true "" "plot count patches with [pcolor = orange]"
+"fire" 1.0 0 -955883 true "" "plot fire-count"
 
 SLIDER
 212
