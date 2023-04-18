@@ -981,7 +981,7 @@ to move-fighters
             ; evacuate if no more fire extiguishers
             ifelse has-extinguisher = false and nearest-extinguisher = nobody [ face nearest-exit ][
               ; put out fires if possible, otherwise evacuate
-              ifelse extinguisher-amount > 0 and fire-count < 200 and fire-count != 0 and count patches with [ floor-number-patch = curr-floor and pcolor = orange ] != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]]
+              ifelse has-extinguisher = true and extinguisher-amount > 0 and fire-count < 200 and fire-count != 0 and count patches with [ floor-number-patch = curr-floor and pcolor = orange ] != 0 and count patches in-radius 2 with [ pcolor = orange ] <= 8 [ face nearest-fire ] [ face nearest-exit ]]]]]
 
       forward speed
 
@@ -1173,7 +1173,7 @@ second_floor
 second_floor
 0
 2968
-2968.0
+0.0
 1
 1
 NIL
@@ -1188,7 +1188,7 @@ fourth_floor
 fourth_floor
 0
 3472
-3000.0
+0.0
 1
 1
 NIL
@@ -1203,7 +1203,7 @@ fifth_floor
 fifth_floor
 0
 3122
-3000.0
+0.0
 1
 1
 NIL
@@ -1218,7 +1218,7 @@ percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-10.0
+0.0
 1
 1
 NIL
@@ -1233,7 +1233,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-10.0
+100.0
 1
 1
 NIL
@@ -1248,7 +1248,7 @@ percentage_listeners
 percentage_listeners
 0
 100 - percentage_prepared - percentage_fighters
-80.0
+0.0
 1
 1
 NIL
@@ -1568,7 +1568,7 @@ number_of_extinguishers
 number_of_extinguishers
 0
 2
-2.0
+0.0
 1
 1
 NIL
