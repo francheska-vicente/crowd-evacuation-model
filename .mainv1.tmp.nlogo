@@ -940,7 +940,7 @@ to move-helpers
             ifelse nearest-alert-listener != nobody [ face assigned-exit ][
             ifelse count lost-listeners != 0 [
               face min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [distance myself]
-              ask lost-listeners in-radius 0 [
+              ask lost-listeners in-radius 20 [
                 set is-alerted true
                 let nearest-lost-listener min-one-of listeners with [ floor-number-turtle = curr-floor and count nearest-visible-exit = 0 and is-alerted = false ] [ distance myself ]
                 if nearest-lost-listener != nobody [ face nearest-lost-listener ]
@@ -1263,7 +1263,7 @@ number_of_helpers
 number_of_helpers
 0
 2
-2.0
+0.0
 1
 1
 NIL
@@ -1544,7 +1544,7 @@ PLOT
 665
 Evacuations per Tick
 Tick
-Deaths
+Evacuated
 0.0
 10.0
 0.0

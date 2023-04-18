@@ -1528,7 +1528,7 @@ Deaths
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
 "prepared" 1.0 0 -2674135 true "" "plot prepared-deaths"
@@ -1544,13 +1544,13 @@ PLOT
 665
 Evacuations per Tick
 Tick
-Deaths
+Evacuated
 0.0
 10.0
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
 "prepared" 1.0 0 -2674135 true "" "plot prepared-evacuated"
