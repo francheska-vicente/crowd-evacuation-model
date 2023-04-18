@@ -1158,7 +1158,7 @@ first_floor
 first_floor
 0
 3549
-154.0
+1000.0
 1
 1
 NIL
@@ -1173,7 +1173,7 @@ second_floor
 second_floor
 0
 3010
-124.0
+3000.0
 1
 1
 NIL
@@ -1188,7 +1188,7 @@ fourth_floor
 fourth_floor
 0
 3472
-199.0
+3000.0
 1
 1
 NIL
@@ -1203,7 +1203,7 @@ fifth_floor
 fifth_floor
 0
 3122
-105.0
+3000.0
 1
 1
 NIL
@@ -1218,7 +1218,7 @@ percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-0.0
+10.0
 1
 1
 NIL
@@ -1233,7 +1233,7 @@ percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-0.0
+10.0
 1
 1
 NIL
@@ -1248,7 +1248,7 @@ percentage_listeners
 percentage_listeners
 0
 100 - percentage_prepared - percentage_fighters
-100.0
+80.0
 1
 1
 NIL
@@ -1263,7 +1263,7 @@ number_of_helpers
 number_of_helpers
 0
 2
-0.0
+2.0
 1
 1
 NIL
@@ -1278,7 +1278,7 @@ rate_of_fire_spread
 rate_of_fire_spread
 0
 100
-5.0
+25.0
 1
 1
 NIL
