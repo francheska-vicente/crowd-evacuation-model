@@ -905,7 +905,7 @@ to move-listeners
             ifelse right-is-wall-or-person? [ left 45 + random 135 ][ if empty-patch != nobody [move-to empty-patch] ]]][
         ifelse nearest-fire != nobody and distance nearest-fire <= 2 [ face nearest-fire right 180 ][
           ifelse count nearest-visible-exit != 0 [ face min-one-of patches with [ pcolor = green and floor-number-patch = curr-floor ] [distance myself] ][
-            ifelse is-alerted = true [ face nearest-helper ][
+            ifelse nearest-helper != nobody and is-alerted = true [ face nearest-helper ][
               ifelse nearest-person != nobody and distance nearest-person <= 5 [ face nearest-person ][ face nearest-fire right 180 ]]]]]
 
 
