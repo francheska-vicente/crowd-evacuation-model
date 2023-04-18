@@ -750,22 +750,22 @@ end
 to setup-people
   create-turtles fifth_floor [
     set floor-number-turtle 5
-    move-to one-of patches with [floor-number-patch = 5 and not any? turtles-here]
+    move-to one-of patches with [floor-number-patch = 5 and pcolor = pink and not any? turtles-here]
   ]
 
   create-turtles fourth_floor [
     set floor-number-turtle 4
-    move-to one-of patches with [floor-number-patch = 4 and not any? turtles-here]
+    move-to one-of patches with [floor-number-patch = 4 and pcolor = magenta and not any? turtles-here]
   ]
 
   create-turtles second_floor [
     set floor-number-turtle 2
-    move-to one-of patches with [floor-number-patch = 2 and not any? turtles-here]
+    move-to one-of patches with [floor-number-patch = 2 and pcolor = blue and not any? turtles-here]
   ]
 
   create-turtles first_floor [
     set floor-number-turtle 1
-    move-to one-of patches with [floor-number-patch = 1 and not any? turtles-here]
+    move-to one-of patches with [floor-number-patch = 1 and pcolor = sky and not any? turtles-here]
 
   ]
 
@@ -1172,8 +1172,8 @@ SLIDER
 second_floor
 second_floor
 0
-3010
-3000.0
+2968
+2968.0
 1
 1
 NIL
