@@ -794,19 +794,19 @@ to setup-people
     set extinguisher-amount 50
   ]
 
-  create-helpers (25 * number_of_helpers) [
+  create-helpers (26 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
     set floor-number-turtle 5
-    move-to one-of patches with [pcolor = green and floor-number-patch = 5 and (count helpers in-radius 2 < number_of_helpers)]
+    move-to one-of patches with [pcolor = green and floor-number-patch = 5 and count turtles-here = 0 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
-  create-helpers (25 * number_of_helpers) [
+  create-helpers (26 * number_of_helpers) [
     set color brown
     set speed 0.5 + random-float 1
     set floor-number-turtle 4
-    move-to one-of patches with [pcolor = green and floor-number-patch = 4 and (count helpers in-radius 2 < number_of_helpers)]
+    move-to one-of patches with [pcolor = green and floor-number-patch = 4 and count turtles-here = 0 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
@@ -814,7 +814,7 @@ to setup-people
     set color brown
     set speed 0.5 + random-float 1
     set floor-number-turtle 2
-    move-to one-of patches with [pcolor = green and floor-number-patch = 2 and (count helpers in-radius 2 < number_of_helpers)]
+    move-to one-of patches with [pcolor = green and floor-number-patch = 2 and count turtles-here = 0 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 
@@ -822,7 +822,7 @@ to setup-people
     set color brown
     set speed 0.5 + random-float 1
     set floor-number-turtle 1
-    move-to one-of patches with [pcolor = green and floor-number-patch = 1 and (count helpers in-radius 2 < number_of_helpers)]
+    move-to one-of patches with [pcolor = green and floor-number-patch = 1 and count turtles-here = 0 and (count helpers in-radius 2 < number_of_helpers)]
     set assigned-exit patch-here
   ]
 end
@@ -997,7 +997,7 @@ to move-fighters
       ]
 
       ; extinguish fire
-      if has-extinguisher = true and extinguisher-amount > 0 and front-is-fire? or left-is-fire? or right-is-fire? [
+      if has-extinguisher = true and extinguisher-amount > 0 and (front-is-fire? or left-is-fire? or right-is-fire?) [
         ask patch-ahead 2 [ if pcolor = orange [set pcolor black + 0.1] ]
         ask patch-ahead 1 [ if pcolor = orange [set pcolor black + 0.1] ]
         ask patch-left-and-ahead 45 2 [ if pcolor = orange [set pcolor black + 0.1] ]
@@ -1150,10 +1150,10 @@ ticks
 30.0
 
 SLIDER
-38
-147
-210
-180
+39
+218
+211
+251
 first_floor
 first_floor
 0
@@ -1165,45 +1165,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-218
-148
-390
-181
+219
+219
+391
+252
 second_floor
 second_floor
 0
 2968
-0.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-38
-186
-210
-219
-fourth_floor
-fourth_floor
-0
-3472
-0.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-218
-186
-390
-219
-fifth_floor
-fifth_floor
-0
-3122
-0.0
+2000.0
 1
 1
 NIL
@@ -1211,69 +1181,99 @@ HORIZONTAL
 
 SLIDER
 39
-291
-212
-324
+257
+211
+290
+fourth_floor
+fourth_floor
+0
+3472
+2000.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+219
+257
+391
+290
+fifth_floor
+fifth_floor
+0
+3122
+2000.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+40
+362
+213
+395
 percentage_prepared
 percentage_prepared
 0
 100 - percentage_listeners - percentage_fighters
-0.0
+33.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-123
-330
-296
-363
+124
+400
+297
+433
 percentage_fighters
 percentage_fighters
 0
 100 - percentage_listeners - percentage_prepared
-100.0
+33.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-217
-291
-390
-324
+218
+362
+391
+395
 percentage_listeners
 percentage_listeners
 0
 100 - percentage_prepared - percentage_fighters
-0.0
+34.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-34
-425
-207
-458
+35
+496
+208
+529
 number_of_helpers
 number_of_helpers
 0
 2
-2.0
+1.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-121
-545
-294
-578
+122
+616
+295
+649
 rate_of_fire_spread
 rate_of_fire_spread
 0
@@ -1285,10 +1285,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-66
-53
-160
-99
+67
+124
+161
+170
 setup
 setup
 NIL
@@ -1302,10 +1302,10 @@ NIL
 1
 
 BUTTON
-263
-53
-357
-99
+264
+124
+358
+170
 NIL
 go
 T
@@ -1319,10 +1319,10 @@ NIL
 1
 
 SLIDER
-33
-507
-206
-540
+34
+578
+207
+611
 fire_x
 fire_x
 -71
@@ -1334,10 +1334,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-212
-506
-385
-539
+213
+577
+386
+610
 fire_y
 fire_y
 -62
@@ -1349,20 +1349,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-38
-124
-397
-143
+39
+195
+398
+214
 These sliders control the number of people per floor of the arena.
 12
 0.0
 1
 
 BUTTON
-166
-52
-259
-98
+167
+123
+260
+169
 NIL
 go
 NIL
@@ -1376,40 +1376,40 @@ NIL
 1
 
 TEXTBOX
-38
-259
-402
-284
+39
+330
+403
+355
 These sliders control the percentages of people with Prepared, Listener, and Fighter behaviors in the arena.
 10
 0.0
 1
 
 TEXTBOX
-42
-405
-391
-424
+43
+476
+392
+495
 These sliders control the number of Helpers and fire extinguishers per exit.
 10
 0.0
 1
 
 TEXTBOX
-34
-487
-387
-506
+35
+558
+388
+577
 These sliders control the starting point and the spread rate of the fire.
 10
 0.0
 1
 
 MONITOR
-1209
-31
-1315
-76
+1212
+88
+1318
+133
 NIL
 prepared-deaths
 17
@@ -1417,10 +1417,10 @@ prepared-deaths
 11
 
 MONITOR
-1209
-81
-1315
-126
+1212
+138
+1318
+183
 NIL
 listener-deaths
 17
@@ -1428,10 +1428,10 @@ listener-deaths
 11
 
 MONITOR
-1209
-131
-1316
-176
+1212
+188
+1319
+233
 NIL
 helper-deaths
 17
@@ -1439,10 +1439,10 @@ helper-deaths
 11
 
 MONITOR
-1319
-31
-1438
-76
+1322
+88
+1441
+133
 NIL
 prepared-evacuated
 17
@@ -1450,10 +1450,10 @@ prepared-evacuated
 11
 
 MONITOR
-1320
-81
-1437
-126
+1322
+138
+1439
+183
 NIL
 listener-evacuated
 17
@@ -1461,10 +1461,10 @@ listener-evacuated
 11
 
 MONITOR
-1320
-132
-1436
-177
+1322
+189
+1438
+234
 NIL
 helper-evacuated
 17
@@ -1472,10 +1472,10 @@ helper-evacuated
 11
 
 MONITOR
-1211
-249
-1437
-294
+1213
+307
+1439
+352
 Average Ticks before Death
 ave-age-at-death / (prepared-deaths + listener-deaths + helper-deaths + fighter-deaths)
 17
@@ -1483,10 +1483,10 @@ ave-age-at-death / (prepared-deaths + listener-deaths + helper-deaths + fighter-
 11
 
 MONITOR
-1211
-299
-1437
-344
+1213
+357
+1439
+402
 Average Ticks before Evacuation
 ave-age-at-evac / (prepared-evacuated + listener-evacuated + helper-evacuated + fighter-evacuated)
 17
@@ -1494,10 +1494,10 @@ ave-age-at-evac / (prepared-evacuated + listener-evacuated + helper-evacuated + 
 11
 
 MONITOR
-1210
-181
-1316
-226
+1212
+238
+1318
+283
 NIL
 fighter-deaths
 17
@@ -1505,10 +1505,10 @@ fighter-deaths
 11
 
 MONITOR
-1320
-181
-1438
-226
+1322
+238
+1440
+283
 NIL
 fighter-evacuated
 17
@@ -1516,10 +1516,10 @@ fighter-evacuated
 11
 
 PLOT
-1211
-360
-1438
-510
+1213
+417
+1440
+567
 Deaths per Tick
 Tick
 Deaths
@@ -1535,13 +1535,12 @@ PENS
 "listener" 1.0 0 -1184463 true "" "plot listener-deaths"
 "helper" 1.0 0 -6459832 true "" "plot helper-deaths"
 "fighter" 1.0 0 -8630108 true "" "plot fighter-deaths"
-"fire" 1.0 0 -955883 true "" "plot fire-count"
 
 PLOT
-1211
-515
-1438
-665
+1213
+573
+1440
+723
 Evacuations per Tick
 Tick
 Evacuated
@@ -1557,18 +1556,17 @@ PENS
 "listener" 1.0 0 -1184463 true "" "plot listener-evacuated"
 "helper" 1.0 0 -6459832 true "" "plot helper-evacuated"
 "fighter" 1.0 0 -8630108 true "" "plot fighter-evacuated"
-"fire" 1.0 0 -955883 true "" "plot fire-count"
 
 SLIDER
-212
-425
-394
-458
+213
+496
+395
+529
 number_of_extinguishers
 number_of_extinguishers
 0
 2
-0.0
+1.0
 1
 1
 NIL
